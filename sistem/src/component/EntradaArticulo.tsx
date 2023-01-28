@@ -295,7 +295,7 @@ export const EntradaArticulo = () => {
                     <div className="row justify-content-between ">
                         <div className="col-auto form-group">
 
-                            <input value={telefono}  placeholder='Telefono' onChange={(e) => onChangeForm(e.target.value, 'telefono')} type='number' className='p-2 from-control' />
+                            <input value={telefono}  placeholder='Telefono' onChange={(e) => onChangeForm(e.target.value, 'telefono')} type='text' className='p-2 from-control' />
                         </div>
                         <div className="col-auto form-group">
 
@@ -563,7 +563,7 @@ export const EntradaArticulo = () => {
                                 <td className='text-color p-2' width="50%">
 
                                     <div className="form-group">
-                                        <input type="number" className='form-control' min={1} onChange={(e) => onChangeForm(e.target.value, 'costoRepuesto')} placeholder='25.000 $' />
+                                        <input type="text" className='form-control' min={1} onChange={(e) => onChangeForm(e.target.value, 'costoRepuesto')} placeholder='25.000 $' />
                                     </div>
 
                                 </td>
@@ -575,7 +575,7 @@ export const EntradaArticulo = () => {
                                 <td colSpan={2} className='text-color p-2'>
 
                                     <div className="form-group">
-                                        <input type="number" min={1} className='form-control' onChange={(e) => onChangeForm(e.target.value, 'costoReparacion')} placeholder='25.000 $' />
+                                        <input type="text" min={1} className='form-control' onChange={(e) => onChangeForm(e.target.value, 'costoReparacion')} placeholder='25.000 $' />
                                     </div>
                                 </td>
                             </tr>

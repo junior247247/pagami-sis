@@ -28,6 +28,7 @@ export const Tecnicos = () => {
 
   const [IsVisible, setIsVisible] = useState({idTecnico:'',IsVisible:false});
   const [Tecnico, setTecnico] = useState<Tecnico[]>([]);
+  const [FilterTecnico, setFilterTecnico] = useState<Tecnico[]>([])
 
   useEffect(() => {
     onChange('Técnicos')
@@ -56,6 +57,8 @@ export const Tecnicos = () => {
     })
 
   }, [])
+
+ 
 
 
 
@@ -86,7 +89,8 @@ export const Tecnicos = () => {
         const getDocs = getDoc(getDocument);
 
         const collTecDinero = collection(db, 'DineroTecnico');
-        const documentTec = doc(collTecDinero, res.get('id'));
+        const documentTec = doc(collTecDinero, res.id);
+       
         const resolve = getDoc(documentTec);
            resolve.then(resp=>{
             if(resp.exists()){
@@ -105,6 +109,16 @@ export const Tecnicos = () => {
   
                 
             setTecnico(resp => {
+              const index = resp.find(resp => resp.idDoc === tec.idDoc);
+              if (index) {
+                return [...resp];
+              } else {
+  
+                return [...resp, tec]
+              }
+            })
+
+            setFilterTecnico(resp => {
               const index = resp.find(resp => resp.idDoc === tec.idDoc);
               if (index) {
                 return [...resp];
@@ -134,6 +148,16 @@ export const Tecnicos = () => {
   
                 
             setTecnico(resp => {
+              const index = resp.find(resp => resp.idDoc === tec.idDoc);
+              if (index) {
+                return [...resp];
+              } else {
+  
+                return [...resp, tec]
+              }
+            })
+
+            setFilterTecnico(resp => {
               const index = resp.find(resp => resp.idDoc === tec.idDoc);
               if (index) {
                 return [...resp];
@@ -211,7 +235,7 @@ export const Tecnicos = () => {
           <div className="row">
               <div className="form-group col-4">
                  
-                  <input type="text" placeholder='Buscar Tecnico' className='form-control'/>
+                  <input type="text" onChange={(e)=>setFilterTecnico(Tecnico.filter(resp=>resp.name.includes(e.target.value)))} placeholder='Buscar Tecnico' className='form-control'/>
               </div>
           </div>
         </div>
@@ -235,7 +259,7 @@ export const Tecnicos = () => {
 
           <tbody >
             {
-              (Tecnico.map((resp, index) => (
+              (FilterTecnico.map((resp, index) => (
 
                 <tr key={index} className={'pointer'}  onDoubleClick={()=>setIsVisible({IsVisible:true,idTecnico:resp.idDoc})}>
                   <th scope="row">{resp.id}</th>
@@ -243,7 +267,7 @@ export const Tecnicos = () => {
                   <td>{resp.name}</td>
                   <td>{resp.nameLocal}</td>
                   <td>{resp.total>0 ? Number(resp.total / 2).toLocaleString('es') :0 }</td>
-                  <td>{resp.total>0 ? Number(resp.total).toLocaleString('es') :0 }</td>
+                  <td>{ Number(resp.total).toLocaleString('es')  }</td>
 
 
 
