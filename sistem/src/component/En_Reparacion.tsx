@@ -13,7 +13,7 @@ export const En_Reparacion = () => {
     const { onChange, state } = useContext(context);
     const { idLoca } = state;
     const [Data, setData] = useState<Entrada[]>([]);
-    const [IsVisible, setIsVisible] = useState({ isVisible: false, id: '' });
+    const [IsVisible, setIsVisible] = useState({ isVisible: false, id: '',idTecnico:'' });
     const [IsVisibleReport, setIsVisiblReporte] = useState({ isVisible: false, id: '' });
     const { onChange: onChangeForm, costoReparacion, costoRepuesto, description, clear } = useForm({ costoReparacion: '', costoRepuesto: '', description: '' });
     const [IVisibleUpdate, setIVisibleUpdate] = useState({ IsVisible: false, id: '' });
@@ -29,12 +29,12 @@ export const En_Reparacion = () => {
         updateDoc(document, {
             estado: 'Listo para entregar'
         })
-        setIsVisible({ isVisible: false, id: '' })
+        setIsVisible({ isVisible: false, id: '',idTecnico:'' })
 
     }
 
     const getDataSelect = async (id: string) => {
-        setIsVisible({ isVisible: false, id: '' })
+        setIsVisible({ isVisible: false, id: '',idTecnico:'' })
         setVisibleDescript(true);
         const db = getFirestore(app);
         const coll = collection(db, 'Entrada');
@@ -44,8 +44,8 @@ export const En_Reparacion = () => {
     }
 
 
-    const getDataGener = async (id: string) => {
-        setIsVisible({ isVisible: true, id: id })
+    const getDataGener = async (id: string,idTecnico:string) => {
+        setIsVisible({ isVisible: true, id: id ,idTecnico:idTecnico})
        
         const db = getFirestore(app);
         const coll = collection(db, 'Entrada');
@@ -54,9 +54,9 @@ export const En_Reparacion = () => {
         setDescCosto({ cRepuesto: get.get('costoRepuesto'), cReparacion: get.get('costoReparacion'),total:get.get('total') });
     }
 
-    const changeModal = (id: string) => {
+    const changeModal = (id: string,idTecnico:string) => {
         setIVisibleUpdate({ IsVisible: true, id: id });
-        setIsVisible({ isVisible: false, id: id });
+        setIsVisible({ isVisible: false, id: id ,idTecnico:idTecnico});
 
     }
 
@@ -105,8 +105,8 @@ export const En_Reparacion = () => {
     }
 
 
-    const showReport = (id: string) => {
-        setIsVisible({ isVisible: false, id: id });
+    const showReport = (id: string,idTecnico:string) => {
+        setIsVisible({ isVisible: false, id: id ,idTecnico:idTecnico});
         setIsVisiblReporte({ isVisible: true, id: id })
     }
 
@@ -131,18 +131,49 @@ export const En_Reparacion = () => {
 
     }
 
-    const retirar = async (id: string) => {
+    const retirar = async (id: string,idTecnico?:string) => {
         const db = getFirestore(app);
         const coll = collection(db, 'Entrada');
         const document = doc(coll, id);
         const resp = await getDoc(document);
         const total = Number(resp.get('total'));
+        const costoReparacion=resp.get("costoReparacion");
         agregarCaja(total);
         addCajaDiaria(total);
         updateDoc(document, {
             estado: 'Retirado'
         })
-        setIsVisible({ isVisible: false, id: '' })
+
+
+
+
+      
+        const collTecDinero = collection(db, 'DineroTecnico');
+        const documentTec = doc(collTecDinero, idTecnico);
+        const resolve = getDoc(documentTec);
+        const respTec = await resolve;
+        if (respTec.exists()) {
+
+            let money: number = respTec.get('money');
+            money += Number(costoReparacion);
+            updateDoc(documentTec, {
+                money
+            })
+        } else {
+       
+
+            setDoc(doc(db,'DineroTecnico',idTecnico!),{
+                idLocal:idLoca,
+                money:costoReparacion
+            })
+    
+        }
+
+        
+
+
+
+        setIsVisible({ isVisible: false, id: '',idTecnico:'' })
 
     }
 
@@ -167,7 +198,9 @@ export const En_Reparacion = () => {
                     total: resp.get('total'),
                     equipo: resp.get('equipo'),
                     serial: resp.get('serial'),
-                    estado: resp.get('estado')
+                    estado: resp.get('estado'),
+                    idTecnico:resp.get('idTecnico')
+                
                 }
             })
             setData(data);
@@ -223,7 +256,7 @@ export const En_Reparacion = () => {
                                     <td>{Number(resp.total).toLocaleString('es')}</td>
                                     <td>{resp.correo}</td>
 
-                                    <td><a href="#" className='btn btn-color' onClick={() => getDataGener(resp.id)}>Estado</a></td>
+                                    <td><a href="#" className='btn btn-color' onClick={() => getDataGener(resp.id,resp.idTecnico!)}>Estado</a></td>
                                 </tr>
 
                             ))
@@ -236,12 +269,12 @@ export const En_Reparacion = () => {
 
 
             {(IsVisible.isVisible) &&
-                <div className="modal-container-delete" id='modal-container-delete' onClick={() => setIsVisible({ isVisible: false, id: '' })}>
+                <div className="modal-container-delete" id='modal-container-delete' onClick={() => setIsVisible({ isVisible: false, id: '' ,idTecnico:''})}>
                     <div className="modal-reparacion" onClick={(e) => e.stopPropagation()}>
                         <div className="d-flex justify-content-between header-modal  align-items-center">
 
                             <p className='ml-2 mt-3 '>Actualizar Estado</p>
-                            <button onClick={() => setIsVisible({ isVisible: false, id: '' })} className='btn bg-white f5'>&times;</button>
+                            <button onClick={() => setIsVisible({ isVisible: false, id: '',idTecnico:'' })} className='btn bg-white f5'>&times;</button>
                         </div>
                         <hr />
                         <div className="container">
@@ -260,11 +293,11 @@ export const En_Reparacion = () => {
                         <h5 className='display-5 text-center mt-1'>Seleccione una opcion</h5>
 
                         <div className="d-flex justify-content-between  p-2 mt-3">
-                            <button className='btn btn-danger' onClick={() => retirar(IsVisible.id)} >Retirado</button>
+                            <button className='btn btn-danger' onClick={() => retirar(IsVisible.id,IsVisible.idTecnico)} >Retirado</button>
 
                             <button className='btn btn-success' onClick={() => listo(IsVisible.id)} >Listo</button>
-                            <button className='btn btn-color' onClick={() => showReport(IsVisible.id)} >Reporte</button>
-                            <button className='btn btn-color' onClick={() => changeModal(IsVisible.id)} >Actualizar Precio</button>
+                            <button className='btn btn-color' onClick={() => showReport(IsVisible.id,IsVisible.idTecnico)} >Reporte</button>
+                            <button className='btn btn-color' onClick={() => changeModal(IsVisible.id,IsVisible.idTecnico)} >Actualizar Precio</button>
                             <button className='btn btn-color' onClick={() => getDataSelect(IsVisible.id)} >Tipo</button>
                         </div>
                     </div>

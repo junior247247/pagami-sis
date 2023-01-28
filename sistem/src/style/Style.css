@@ -15,6 +15,16 @@ body {
 
 
 }
+.unseleted{
+    user-select: none;
+}
+.modal-stand{
+    background-color: white;
+    width: 300px;
+    padding: 10px;
+    border-radius: 5px;
+    animation: 1s setReport linear;
+}
 .salir{
     position: relative;
     

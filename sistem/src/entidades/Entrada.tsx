@@ -13,6 +13,7 @@ export interface Entrada{
     equipo:string;
     serial:string;
     estado:string;
+    idTecnico?:string;
 
 }
 
