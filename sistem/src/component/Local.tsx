@@ -69,34 +69,43 @@ export const Local = () => {
     <div>
       <div className="container mt-3">
         <div className="row justify-content-between">
-          <div className="col-auto">
+          <div className="col-5">
             <div className="from-group row ">
               <input placeholder='Nombre'  value={name} onChange={(e) => onChangeForm(e.target.value,'name')} type="text" className='form-control' />
 
             </div>
 
           </div>
-          <div className="col-auto">
+          <div className="col-5">
             <div className="from-group row ">
               <input placeholder='Email' value={email} onChange={(e) => onChangeForm(e.target.value,'email')} type="text" className='form-control ' />
             </div>
           </div>
 
-          <div className="col-auto">
+         
+
+        </div>
+
+        <div className="row justify-content-between mt-2">
+        <div className="col-5">
             <div className="from-group row ">
               <input placeholder='Contraseña'  value={pass} onChange={(e) => onChangeForm(e.target.value,'pass')} type='password' className='form-control ' />
             </div>
           </div>
-          <div className="col-auto">
+          <div className="col-5">
             <div className="from-group row ">
               <input placeholder='Confirmar Contraseña' value={passConfirm} onChange={(e) => onChangeForm(e.target.value,'passConfirm')} type='password' className='form-control ' />
             </div>
           </div>
+        </div>
 
-          <div className="col-auto">
+        
+
+        <div className="row mt-3">
+        <div className="col">
             <div className="from-group row ">
 
-              <button className='btn btn-outline-light ml-3' onClick={create}>Guardar</button>
+              <button className='btn btn-outline-light ' onClick={create}>Guardar</button>
             </div>
           </div>
         </div>
@@ -104,7 +113,7 @@ export const Local = () => {
 
 
 
-      <div className="table-container col-8 mt-3  mr-3">
+      <div className="table-container col-12 mt-3  mr-3">
         <table className="table  table-dark table-hover ">
           <thead>
             <tr>

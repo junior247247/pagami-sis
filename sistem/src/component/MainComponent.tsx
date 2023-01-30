@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Header } from './Header'
 import { Link, BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Productos } from './Productos';
@@ -14,15 +14,20 @@ import { Caja } from './Caja';
 import { Gastos } from './Gastos';
 import { context } from '../hooks/AppContext';
 import { Login } from './Login';
+import { act } from 'react-dom/test-utils';
 
 export const MainComponent = () => {
 
  
   
   const closeMenu = () => {
-    //document.getElementById('lateral')!.style.width = '0';
-    //document.getElementById('transp')!.style.display = 'none';
-    active();
+
+  
+    if(document.getElementById('transp')?.style.display=='block'){
+      document.getElementById('transp')!.style.display = 'none';
+      document.getElementById('lateral')!.style.width = '0';
+    }
+ 
 
   }
 
@@ -40,13 +45,19 @@ export const MainComponent = () => {
       btnEl.addEventListener('click',()=>{
           disActive();
           btnEl.classList.add('active');
-          btnEl.classList.remove('disable')
+          btnEl.classList.remove('disable');
       })
     
 
     })
 
   }
+
+
+  useEffect(() => {
+   active()
+  }, [])
+  
 
   return (
 
