@@ -20,17 +20,29 @@ export const MainComponent = () => {
  
   
   const closeMenu = () => {
-    document.getElementById('lateral')!.style.width = '0';
-    document.getElementById('transp')!.style.display = 'none';
-   // active();
+    //document.getElementById('lateral')!.style.width = '0';
+    //document.getElementById('transp')!.style.display = 'none';
+    active();
 
+  }
+
+  const disActive=()=>{
+    const btn=document.querySelectorAll('.enlace');
+    btn.forEach(btn=>{
+      btn.classList.remove('active')
+      btn.classList.add('disable')
+    })
   }
 
   const active = () => {
     const btn = document.querySelectorAll('.enlace');
     btn.forEach(btnEl => {
-      document.querySelector('.active')?.classList.remove('active');
-      btnEl.classList.add('active');
+      btnEl.addEventListener('click',()=>{
+          disActive();
+          btnEl.classList.add('active');
+          btnEl.classList.remove('disable')
+      })
+    
 
     })
 
@@ -56,7 +68,7 @@ export const MainComponent = () => {
             </div>
 
             <nav className="menu  d-flex  d-sm-block p-0  flex-wrap">
-              <Link onClick={closeMenu} className='enlace col-sm-12  disable ' to={'/Local'}><span>Local</span></Link>
+              <Link onClick={closeMenu} className='enlace active col-sm-12   ' to={'/Local'}><span>Local</span></Link>
               <Link onClick={closeMenu} className='enlace col-sm-12 disable' to={'/Horario'}><span>Horario</span></Link>
               <Link onClick={closeMenu} className='enlace col-sm-12 disable' to={'/entrada'}><span>Ingreso</span></Link>
               <Link onClick={closeMenu} className='enlace col-sm-12 disable' to={'/EnReparacion'}><span>En reparacion</span></Link>

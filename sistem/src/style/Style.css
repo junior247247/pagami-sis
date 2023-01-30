@@ -15,6 +15,7 @@ body {
 
 
 }
+
 .unseleted{
     user-select: none;
 }
@@ -577,7 +578,10 @@ body {
 }
 
 .active {
-    color: red;
+
+    color: #FEAA45;
+    font-weight: bolder;
+    font-size: 24px;
 }
 
 .radio {
