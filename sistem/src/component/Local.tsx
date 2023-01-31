@@ -67,7 +67,7 @@ export const Local = () => {
 
   return (
     <div>
-      <div className="container mt-3">
+      <div className="container-fluid  mt-3 ml-4 mr-4">
         <div className="row justify-content-between">
           <div className="col-5">
             <div className="from-group row ">

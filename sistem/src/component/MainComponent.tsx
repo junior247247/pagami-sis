@@ -80,7 +80,7 @@ export const MainComponent = () => {
 
             <nav className="menu  d-flex  d-sm-block p-0  flex-wrap">
               <Link onClick={closeMenu} className='enlace active col-sm-12   ' to={'/Local'}><span>Local</span></Link>
-              <Link onClick={closeMenu} className='enlace col-sm-12 disable' to={'/Horario'}><span>Horario</span></Link>
+        
               <Link onClick={closeMenu} className='enlace col-sm-12 disable' to={'/entrada'}><span>Ingreso</span></Link>
               <Link onClick={closeMenu} className='enlace col-sm-12 disable' to={'/EnReparacion'}><span>En reparacion</span></Link>
               <Link onClick={closeMenu} className='enlace col-sm-12 disable' to={'/salida'}><span>Listo para entregar</span></Link>
@@ -116,7 +116,7 @@ export const MainComponent = () => {
                 
                 
                 
-                  <Route index element={<Productos />} />
+                  <Route index element={<Local />} />
                   <Route path='/entrada' element={<EntradaArticulo />} />
                   <Route path='/Productos' element={<Productos />} />
                   <Route path='/salida' element={<Salida />} />

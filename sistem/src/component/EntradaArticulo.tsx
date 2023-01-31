@@ -33,7 +33,7 @@ export const EntradaArticulo = () => {
     const [Count, setCount] = useState(0);
     const [Tecnico, setTecnico] = useState<Tecnico[]>([])
 
-    const [NameSelect, setNameSelect] = useState({ name: 'Seleccion', id: '' })
+    const [NameSelect, setNameSelect] = useState({ name: 'Tecnico', id: '' })
 
     const Fecha = useRef(new Date(new Date().getTime())).current;
     const h1 = useRef();
@@ -519,20 +519,22 @@ export const EntradaArticulo = () => {
 
                 </form>
 
-                <div className="d-flex align-items-center ">
+                <div className="d-flex   align-items-center">
 
 
-                    <div className='col-4' >
+                    <div className='' >
+                        
                         <h5 className='text-color'>Observaciones</h5>
-                        <textarea value={observacion} onChange={({ target }) => onChangeForm(target.value, 'observacion')} className='form-control area'  ></textarea>
+                     
+                        <textarea value={observacion} onChange={({ target }) => onChangeForm(target.value, 'observacion')} className='form-control area-1'  ></textarea>
 
 
 
                     </div>
 
 
-                    <div className="form-group mt-2 ml-5">
-                        <input className='text-color' onChange={(e) => setfile(e.target.files!)} accept='image/*' type="file" />
+                    <div className="form-group col-auto">
+                        <input className='text-color form-control'  onChange={(e) => setfile(e.target.files!)} accept='image/*' type="file" />
                     </div>
 
 
