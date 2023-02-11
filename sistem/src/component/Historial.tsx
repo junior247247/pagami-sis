@@ -121,7 +121,8 @@ export const Historial = () => {
           total: resp.get('total'),
           equipo:resp.get('equipo'),
           serial:resp.get('serial'),
-          estado:resp.get('estado')
+          estado:resp.get('estado'),
+          noFact:resp.get("noFact")
         }
       })
     

@@ -14,6 +14,7 @@ export interface Entrada{
     serial:string;
     estado:string;
     idTecnico?:string;
+    noFact:string;
 
 }
 

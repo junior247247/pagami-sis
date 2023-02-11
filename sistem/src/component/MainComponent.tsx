@@ -15,6 +15,7 @@ import { Gastos } from './Gastos';
 import { context } from '../hooks/AppContext';
 import { Login } from './Login';
 import { act } from 'react-dom/test-utils';
+import { HistorialIngreso } from './HistorialIngreso';
 
 export const MainComponent = () => {
 
@@ -92,7 +93,7 @@ export const MainComponent = () => {
               <Link onClick={closeMenu} className='enlace col-sm-12 disable' to={'/Tecnicos'}><span>Tecnicos</span></Link>
               <Link onClick={closeMenu} className='enlace col-sm-12   disable' to={'/Gastos'}><span>Gastos</span></Link>
 
-
+              <Link onClick={closeMenu} className='enlace col-sm-12 disable' to={'/HistorialIngreso'}><span>Historial Ingreso</span></Link>
               <Link onClick={closeMenu} className='enlace col-sm-12 disable' to={'/Caja'}><span>Caja</span></Link>
 
 
@@ -128,6 +129,7 @@ export const MainComponent = () => {
                   <Route path='/Local' element={<Local />} />
                   <Route path='/Caja' element={<Caja />} />
                   <Route path='/Gastos' element={<Gastos />} />
+                  <Route path='/HistorialIngreso' element={<HistorialIngreso/>}/>
                   <Route path='*' element={<Productos />} />
                  
                 

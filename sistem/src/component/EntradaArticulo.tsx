@@ -243,6 +243,7 @@ export const EntradaArticulo = () => {
         })
         addCajaDiaria();
         clear();
+        
 
 
     }
@@ -565,7 +566,7 @@ export const EntradaArticulo = () => {
                                 <td className='text-color p-2' width="50%">
 
                                     <div className="form-group">
-                                        <input type="text" className='form-control' min={1} onChange={(e) => onChangeForm(e.target.value, 'costoRepuesto')} placeholder='25.000 $' />
+                                        <input type="text" className='form-control' min={1} value={costoRepuesto} onChange={(e) => onChangeForm(e.target.value, 'costoRepuesto')} placeholder='25.000 $' />
                                     </div>
 
                                 </td>
@@ -577,7 +578,7 @@ export const EntradaArticulo = () => {
                                 <td colSpan={2} className='text-color p-2'>
 
                                     <div className="form-group">
-                                        <input type="text" min={1} className='form-control' onChange={(e) => onChangeForm(e.target.value, 'costoReparacion')} placeholder='25.000 $' />
+                                        <input type="text" min={1} className='form-control' value={costoReparacion} onChange={(e) => onChangeForm(e.target.value, 'costoReparacion')} placeholder='25.000 $' />
                                     </div>
                                 </td>
                             </tr>
@@ -602,21 +603,7 @@ export const EntradaArticulo = () => {
                             <span className="checkmark"></span>
                         </label>
                     </div>
-                    <div className=" ml-3">
-                        <label className="container-radio text-color">Listo para entregar
-                            <input type="radio" id='radio' checked={(estado == 'Listo para entregar') ? true : false} onChange={() => onChangeForm('Listo para entregar', 'estado')} name='radio' />
-                            <span className="checkmark"></span>
-                        </label>
-                    </div>
-                    <div className=" ml-3">
-                        <label className="container-radio text-color">Retirado del local
-                            <input type="radio" name='radio' checked={(estado == 'Retirado' ? true : false)} onChange={() => {
-                                onChangeForm('Retirado', 'estado')
-
-                            }} />
-                            <span className="checkmark"></span>
-                        </label>
-                    </div>
+              
 
                     <a onClick={create}
 

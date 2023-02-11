@@ -70,7 +70,8 @@ export const En_Reparacion = () => {
             total: total,
             idLocal: idLoca,
             cierre: 'SIN CIERRE',
-            tipo: 'VENTA'
+            tipo: 'VENTA',
+            timestamp:new Date().getTime()
         })
 
 
@@ -199,7 +200,8 @@ export const En_Reparacion = () => {
                     equipo: resp.get('equipo'),
                     serial: resp.get('serial'),
                     estado: resp.get('estado'),
-                    idTecnico:resp.get('idTecnico')
+                    idTecnico:resp.get('idTecnico'),
+                    noFact:resp.get('noFact')
                 
                 }
             })
@@ -227,6 +229,7 @@ export const En_Reparacion = () => {
                 <table className="table  table-dark table-hover ">
                     <thead>
                         <tr>
+                            <th scope="col th-sm">No Fact</th>
                             <th scope="col th-sm">Nombre</th>
                             <th scope="col">DNI</th>
                             <th scope="col">Equipo</th>
@@ -245,6 +248,7 @@ export const En_Reparacion = () => {
                         {
                             FilterData.map((resp, index) => (
                                 <tr key={index} className={'pointer'} onDoubleClick={() => setIsVisiblReporte({ isVisible: true, id: resp.id })}>
+                                    <th scope="row">{resp.noFact}</th>
                                     <th scope="row">{resp.name.toUpperCase()}</th>
                                     <td>{resp.identiifcation}</td>
                                     <td>{resp.equipo}</td>

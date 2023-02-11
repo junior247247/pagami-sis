@@ -190,14 +190,16 @@ export const Caja = () => {
 
     const collCaja = collection(db, "Caja");
     const QueryCaja = query(collCaja, where("idLocal", "==", idLoca));
-    const snapCaja = await getDocs(QueryCaja);
-    snapCaja.docs.map((resp) => {
-      const id = resp.id;
-      const document = doc(collCaja, id);
-      updateDoc(document, {
+
+
+    //const snapCaja = await getDocs(QueryCaja);
+  
+      //const id = resp.id;
+      const documents = doc(collCaja, idLoca);
+      updateDoc(documents, {
         money: "0",
       });
-    });
+
 
     const collFondo = collection(db, "FondoCaja");
     const document = doc(collFondo, idLoca);

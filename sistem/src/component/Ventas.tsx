@@ -52,7 +52,8 @@ export const Ventas = () => {
             total: total,
             idLocal: idLoca,
             cierre: 'SIN CIERRE',
-            tipo: 'VENTA'
+            tipo: 'VENTA',
+            timestam:new Date().getDate()
         })
 
 

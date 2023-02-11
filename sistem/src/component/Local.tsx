@@ -11,11 +11,12 @@ import { async } from '@firebase/util';
 interface Local {
   id: string;
   name: string;
+  idLocal:string;
 }
 
 export const Local = () => {
 
-  const { onChange } = useContext(context);
+  const { onChange,state:{idLoca} } = useContext(context);
   const [Local, setLocal] = useState<Local[]>([]);
   const  {name,email,pass,passConfirm,clear,onChange:onChangeForm}= useForm({name:'',email:'',pass:'',passConfirm:''});
 
@@ -56,7 +57,8 @@ export const Local = () => {
       const data: Local[] = resp.docs.map(res => {
         return {
           id: res.id,
-          name: res.get('name')
+          name: res.get('name'),
+          idLocal:res.get('idLocal')
         }
       })
       setLocal(data);
@@ -125,8 +127,8 @@ export const Local = () => {
             {
               (Local.map((resp, index) => (
 
-                <tr key={index} className={'pointer'} >
-                  <th scope="row">{resp.name}</th>
+                <tr key={index} className={(idLoca===resp.idLocal) ? 'bg-main border pointer ' :'pointer'} >
+                  <th scope="row" className={''}>{resp.name}</th>
                 </tr>
               )))
             }
