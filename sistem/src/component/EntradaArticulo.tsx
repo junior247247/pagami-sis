@@ -8,8 +8,9 @@ import { app } from '../Firebase/conexion';
 import { Indicator } from './Indicator';
 import { async } from '@firebase/util';
 import { ParseToDate } from '../hooks/ParseDate';
-import { setTimeout } from 'timers/promises';
+
 import { clear } from 'console';
+
 
 interface fileImg {
     fileUri: string;
@@ -28,6 +29,7 @@ export const EntradaArticulo = () => {
     const { idLoca } = state;
 
     const [IsLoading, setIsLoading] = useState(false);
+    
 
     const [file, setfile] = useState<FileList>();
     const [Count, setCount] = useState(0);
@@ -111,6 +113,19 @@ export const EntradaArticulo = () => {
 
 
 
+    useEffect(() => {
+     
+      const timer= setTimeout(() => {
+        document.getElementById('modal-indicator')!.style.display='none'
+        setIsLoading(false)
+      }, 3000);
+
+    
+      return () => clearTimeout(timer)
+        
+      
+    }, [IsLoading])
+    
 
 
     useEffect(() => {
@@ -188,7 +203,8 @@ export const EntradaArticulo = () => {
         const coll = collection(db, 'Entrada');
 
         setIsLoading(true);
-        let url = '';
+        document.getElementById('modal-indicator')!.style.display='flex'
+    /*    let url = '';
         if (file != null) {
 
             const { fileUri } = await getFile(file!);
@@ -244,7 +260,7 @@ export const EntradaArticulo = () => {
         addCajaDiaria();
         clear();
         
-
+*/
 
     }
 
@@ -613,11 +629,10 @@ export const EntradaArticulo = () => {
             </div>
 
 
-            {
-                (IsLoading) &&
+           
 
-                <div className='container-indicator' onClick={() => setIsLoading(false)}>
-                    <div className="body-indicator ">
+                <div id='modal-indicator' className='container-indicator' onClick={() => setIsLoading(false)}>
+                    <div className="body-indicator">
                         <div className="indicator-success">
                             <h4 className='text-black'>Exito</h4>
                             <div className='gg-check'></div>
@@ -625,7 +640,7 @@ export const EntradaArticulo = () => {
                     </div>
                 </div>
 
-            }
+            
 
 
 

@@ -69,8 +69,25 @@ body {
     justify-content: center;
     position: absolute;
     top: 0;
+ 
+   
 
 }
+
+@keyframes mostrar {
+    0%{
+        opacity: 0;
+    }50%{
+       opacity: 1;
+    }75%{
+        opacity: 1;
+    }100%{
+        opacity: 0;
+    }
+
+}
+
+
 .body-indicator{
     width: 200px;
     height: 200px;
@@ -80,7 +97,8 @@ body {
     justify-content: center;
     border-radius: 10px;
     flex-direction: column;
-    animation: setReport 2s linear ;
+ 
+    animation: mostrar 3s  infinite;
     
 }
 .fixed{
