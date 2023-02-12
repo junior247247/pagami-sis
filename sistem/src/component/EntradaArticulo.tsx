@@ -204,7 +204,7 @@ export const EntradaArticulo = () => {
 
         setIsLoading(true);
         document.getElementById('modal-indicator')!.style.display='flex'
-    /*    let url = '';
+       let url = '';
         if (file != null) {
 
             const { fileUri } = await getFile(file!);
@@ -260,7 +260,7 @@ export const EntradaArticulo = () => {
         addCajaDiaria();
         clear();
         
-*/
+
 
     }
 

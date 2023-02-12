@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect,useState } from 'react'
 import { Header } from './Header'
 import { Link, BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Productos } from './Productos';
@@ -16,10 +16,12 @@ import { context } from '../hooks/AppContext';
 import { Login } from './Login';
 import { act } from 'react-dom/test-utils';
 import { HistorialIngreso } from './HistorialIngreso';
+import { collection, getFirestore, onSnapshot, query, where } from 'firebase/firestore';
+import { app } from '../Firebase/conexion';
 
 export const MainComponent = () => {
 
- 
+  const [Count, setCount] = useState(0);
   
   const closeMenu = () => {
 
@@ -32,6 +34,19 @@ export const MainComponent = () => {
 
   }
 
+
+  useEffect(() => {
+    
+    const db=getFirestore(app);
+    const coll=collection(db,'Entrada');
+    const Q=query(coll,where('estado','==','En Reparacion'))
+    onSnapshot(Q,(resp)=>{
+      setCount(resp.size);
+
+    })
+
+  }, [])
+  
   const disActive=()=>{
     const btn=document.querySelectorAll('.enlace');
     btn.forEach(btn=>{
@@ -83,7 +98,7 @@ export const MainComponent = () => {
               <Link onClick={closeMenu} className='enlace active col-sm-12   ' to={'/Local'}><span>Local</span></Link>
         
               <Link onClick={closeMenu} className='enlace col-sm-12 disable' to={'/entrada'}><span>Ingreso</span></Link>
-              <Link onClick={closeMenu} className='enlace col-sm-12 disable' to={'/EnReparacion'}><span>En reparacion</span></Link>
+              <Link onClick={closeMenu} className='enlace col-sm-12 disable' to={'/EnReparacion'}><span>En reparacion <span  className='yellow ml-1'>({Count})</span></span></Link>
               <Link onClick={closeMenu} className='enlace col-sm-12 disable' to={'/salida'}><span>Listo para entregar</span></Link>
               <Link onClick={closeMenu} className='enlace col-sm-12 disable' to={'/Historial'}><span>Historial</span></Link>
               <Link onClick={closeMenu} className='enlace col-sm-12 disable' to={'/Venta'}><span>Venta</span></Link>
