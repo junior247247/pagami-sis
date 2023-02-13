@@ -22,6 +22,8 @@ import { app } from '../Firebase/conexion';
 export const MainComponent = () => {
 
   const [Count, setCount] = useState(0);
+  const [CountListo, setCountListo] = useState(0);
+  const [CountRetirados, setCountRetirados] = useState(0);
   
   const closeMenu = () => {
 
@@ -33,6 +35,32 @@ export const MainComponent = () => {
  
 
   }
+
+
+  useEffect(() => {
+    
+    const db=getFirestore(app);
+    const coll=collection(db,'Entrada');
+    const Q=query(coll,where('estado','==','Listo para entregar'))
+    onSnapshot(Q,(resp)=>{
+      setCountListo(resp.size);
+
+    })
+
+  }, [])
+
+
+  useEffect(() => {
+    
+    const db=getFirestore(app);
+    const coll=collection(db,'Entrada');
+    const Q=query(coll,where('estado','==','Retirado'))
+    onSnapshot(Q,(resp)=>{
+      setCountRetirados(resp.size);
+
+    })
+
+  }, [])
 
 
   useEffect(() => {
@@ -99,8 +127,8 @@ export const MainComponent = () => {
         
               <Link onClick={closeMenu} className='enlace col-sm-12 disable' to={'/entrada'}><span>Ingreso</span></Link>
               <Link onClick={closeMenu} className='enlace col-sm-12 disable' to={'/EnReparacion'}><span>En reparacion <span  className='yellow ml-1'>({Count})</span></span></Link>
-              <Link onClick={closeMenu} className='enlace col-sm-12 disable' to={'/salida'}><span>Listo para entregar</span></Link>
-              <Link onClick={closeMenu} className='enlace col-sm-12 disable' to={'/Historial'}><span>Historial</span></Link>
+              <Link onClick={closeMenu} className='enlace col-sm-12 disable' to={'/salida'}><span>Listo para entregar <span  className='yellow ml-1'>({CountListo})</span>  </span></Link>
+              <Link onClick={closeMenu} className='enlace col-sm-12 disable' to={'/Historial'}><span>Historial <span  className='yellow ml-1'>({CountRetirados})</span> </span></Link>
               <Link onClick={closeMenu} className='enlace col-sm-12 disable' to={'/Venta'}><span>Venta</span></Link>
 
               <Link onClick={closeMenu} className={'enlace  col-sm-12 disable'} to={'/Productos'}><span>Productos</span></Link>
