@@ -310,6 +310,7 @@ body {
     width: 25px;
     background-color: #eee;
     border-radius: 50%;
+
 }
 .yellow{
    color: #FFAA2D;
@@ -318,7 +319,57 @@ body {
 .container-radio input:checked~.checkmark {
     background-color: #FFAA2D;
 }
+@media (max-width:997px) {
+    .menu{
+        display: block;
+    }
 
+    .barra-lateral{
+        display: block;
+        position: absolute;
+        width: 0px;
+        overflow: hidden;
+        z-index: 999;
+        transition: all 0.2s;
+    }
+
+
+
+}
+@media (max-width:834px) {
+    .text-table{
+        font-size: 11px;
+    }
+}
+@media (max-width:412px) {
+    .text-mobile{
+        font-size: 8px;
+    }
+}
+@media (max-width:986px) {
+    .m-0{
+        margin: 0px auto;
+    }
+}
+@media (max-width:1152px) {
+    .margin-desk{
+        margin-top: 10px;
+    }
+}
+@media (max-width:434px) {
+    .mobile-margin{
+        margin-top: 10px;
+    }
+  
+}
+
+@media (max-width:1006px) {
+    .none{
+        width: 400px;
+        overflow: hidden;
+        display: none;
+    }
+}
 .container-radio {
     display: block;
     position: relative;

@@ -8,6 +8,7 @@ export const Header = () => {
    
     const showLateral=()=>{
       document.getElementById('lateral')!.style.width='300px';
+      document.getElementById('lateral')!.style.display='block';
       document.getElementById('transp')!.style.display='block';
     
     }

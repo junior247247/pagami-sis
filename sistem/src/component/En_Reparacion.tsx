@@ -229,18 +229,18 @@ export const En_Reparacion = () => {
                 <table className="table  table-dark table-hover ">
                     <thead>
                         <tr>
-                            <th scope="col th-sm">No Fact</th>
-                            <th scope="col th-sm">Nombre</th>
-                            <th scope="col">DNI</th>
-                            <th scope="col">Equipo</th>
-                            <th scope="col">Serial</th>
-                            <th scope="col">Telefono</th>
-                            <th scope="col">Fecha</th>
-                            <th scope="col">C.Reparacion</th>
-                            <th scope="col">C.Repuesto</th>
-                            <th scope="col">C.Total</th>
-                            <th scope="col">Correo</th>
-                            <th scope="col">Retirar</th>
+                            <th className='text-mobile' scope="col th-sm">No Fact</th>
+                            <th className='text-mobile' scope="col th-sm">Nombre</th>
+                            <th className='text-mobile' scope="col">DNI</th>
+                            <th  className='text-mobile' scope="col">Equipo</th>
+                            <th className='text-mobile' scope="col">Serial</th>
+                            <th className='text-mobile' scope="col">Telefono</th>
+                            <th className='text-mobile' scope="col">Fecha</th>
+                            <th className='text-mobile' scope="col">C.Reparacion</th>
+                            <th className='text-mobile' scope="col">C.Repuesto</th>
+                            <th className='text-mobile' scope="col">C.Total</th>
+                            <th className='text-mobile' scope="col">Correo</th>
+                            <th className='text-mobile' scope="col">Retirar</th>
 
                         </tr>
                     </thead>
@@ -248,17 +248,17 @@ export const En_Reparacion = () => {
                         {
                             FilterData.map((resp, index) => (
                                 <tr key={index} className={'pointer'} onDoubleClick={() => setIsVisiblReporte({ isVisible: true, id: resp.id })}>
-                                    <th scope="row">{resp.noFact}</th>
-                                    <th scope="row">{resp.name.toUpperCase()}</th>
-                                    <td>{resp.identiifcation}</td>
-                                    <td>{resp.equipo}</td>
-                                    <td>{resp.serial}</td>
-                                    <td>{resp.phone}</td>
-                                    <td>{ParseToDate(resp.fecha)}</td>
-                                    <td>{Number(resp.costoReparacion).toLocaleString('es')}</td>
-                                    <td>{Number(resp.costoRepuesto).toLocaleString('es')}</td>
-                                    <td>{Number(resp.total).toLocaleString('es')}</td>
-                                    <td>{resp.correo}</td>
+                                    <th className='text-mobile' scope="row">{resp.noFact}</th>
+                                    <th className='text-mobile' scope="row">{resp.name.toUpperCase()}</th>
+                                    <td className='text-mobile'>{resp.identiifcation}</td>
+                                    <td className='text-mobile'>{resp.equipo}</td>
+                                    <td className='text-mobile'>{resp.serial}</td>
+                                    <td className='text-mobile'>{resp.phone}</td>
+                                    <td className='text-mobile'>{ParseToDate(resp.fecha)}</td>
+                                    <td className='text-mobile'>{Number(resp.costoReparacion).toLocaleString('es')}</td>
+                                    <td className='text-mobile'>{Number(resp.costoRepuesto).toLocaleString('es')}</td>
+                                    <td className='text-mobile'>{Number(resp.total).toLocaleString('es')}</td>
+                                    <td className='text-mobile'>{resp.correo}</td>
 
                                     <td><a href="#" className='btn btn-color' onClick={() => getDataGener(resp.id,resp.idTecnico!)}>Estado</a></td>
                                 </tr>

@@ -142,17 +142,14 @@ export const ReporteEntrada = ({id}:Props) => {
 
                     </View>
                     <View>
-                        <Text style={style.text}>Parque berrio Centro Comercial Metro Boyaca Local 111,CL. 51 #51-40 Medellin ,Antioquia Colombia
-                        
-                        Boyaca Local 111,CL. 51 #51-40 Medellin ,Antioquia Colombia Contacto: +57 3105102274
-                        </Text>
+                      
 
 
 
 
-                   {/*     <Text style={style.text}>Boyaca Local 111,CL. 51 #51-40</Text>
+                       <Text style={style.text}>Boyaca Local 111,CL. 51 #51-40</Text>
                         <Text style={style.text}>Medellin ,Antioquia Colombia</Text>
-    <Text style={style.text}>Contacto: +57 3105102274</Text>*/}
+                        <Text style={style.text}>Contacto: +57 3105102274</Text>
 
                     </View>
                     <View style={style.line} />

@@ -150,24 +150,24 @@ export const Productos = () => {
                 <table className="table table-dark table-hover ">
                     <thead>
                         <tr>
-                            <th scope="col">Codigo</th>
-                            <th scope="col">Producto</th>
-                            <th scope="col">Precio</th>
-                            <th scope="col">Existencia</th>
-                            <th scope="col">Editar</th>
-                            <th scope="col">Eliminar</th>
+                            <th className='text-mobile text-table' scope="col">Codigo</th>
+                            <th className='text-mobile text-table' scope="col">Producto</th>
+                            <th className='text-mobile text-table' scope="col">Precio</th>
+                            <th className='text-mobile text-table' scope="col">Existencia</th>
+                            <th className='text-mobile text-table' scope="col">Editar</th>
+                            <th className='text-mobile text-table' scope="col">Eliminar</th>
                         </tr>
                     </thead>
                     <tbody >
                         {
                             producto.map((resp,index) => (
                                 <tr key={index}>
-                                    <th scope="row">{resp.codigo}</th>
-                                    <td>{resp.description.toUpperCase()}</td>
-                                    <td>{Number(resp.precio).toLocaleString('es')}</td>
-                                    <td>{resp.existencia}</td>
-                                    <td><a href="#" onClick={() => getById(resp.id)} className='btn btn-success' data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Editar</a></td>
-                                    <td><a href="#" onClick={() => Eliminar(resp.id)}  className='btn btn-danger'>Eliminar</a></td>
+                                    <th  className='text-mobile text-table' scope="row">{resp.codigo}</th>
+                                    <td className='text-mobile text-table' >{resp.description.toUpperCase()}</td>
+                                    <td className='text-mobile text-table' >{Number(resp.precio).toLocaleString('es')}</td>
+                                    <td className='text-mobile text-table' >{resp.existencia}</td>
+                                    <td className='text-mobile text-table' ><a href="#" onClick={() => getById(resp.id)} className='btn btn-success' data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Editar</a></td>
+                                    <td className='text-mobile text-table' ><a href="#" onClick={() => Eliminar(resp.id)}  className='btn btn-danger'>Eliminar</a></td>
                                 </tr>
 
                             ))

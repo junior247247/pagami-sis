@@ -122,7 +122,7 @@ export const Historial = () => {
           equipo:resp.get('equipo'),
           serial:resp.get('serial'),
           estado:resp.get('estado'),
-          noFact:resp.get("noFact")
+          noFact:resp.get("noFact className='text-mobile' ")
         }
       })
     
@@ -135,25 +135,28 @@ export const Historial = () => {
   return (
     <div>
 
-      <div className="d-flex  align-items-center mt-3 mb-3">
-        <div className="col-auto">
-          <h4 className='text-white'>Buscar</h4>
-        </div>
-        <div className="col-6">
-          <input type="text" className='form-control' />
-        </div>
+      <div className="container-fluid  align-items-center mt-3 mb-3">
+        <div className="row  ">
+       
+        <div className="col-sm-6 col-md-4">
+            <p className='text-white pt-3'>Nombre</p>
+            <input type="text" className='form-control' placeholder='Nombre' id="" />
+          </div>
 
-        <div className="d-flex justify-content-end align-items-center">
-          <div className="col-auto">
+       
+          <div className="col-sm-6 col-md-4">
             <p className='text-white pt-3'>Desde</p>
+            <input type="date" className='form-control' name="" id="" />
           </div>
-          <input type="date" className='form-control' name="" id="" />
 
-          <div className="col-auto align-self-center  ">
+          <div className="col-sm-6 col-md-4">
             <p className='text-white pt-3'>Hasta</p>
+            <input type="date" className='form-control' name="" id="" />
           </div>
-          <input type="date" className='form-control' name="" id="" />
+
+    
         </div>
+    
 
 
       </div>
@@ -162,18 +165,18 @@ export const Historial = () => {
         <table className="table  table-dark table-hover ">
           <thead>
             <tr>
-              <th scope="col">Nombre</th>
-              <th scope="col">Identificacion</th>
-              <th scope="col">Equipo</th>
-              <th scope="col">Serial</th>
+              <th className='text-mobile text-table'  scope="col">Nombre</th>
+              <th className='text-mobile text-table'  scope="col">Identificacion</th>
+              <th  className='text-mobile text-table' scope="col" colSpan={0} >Equipo</th>
+              <th  className='text-mobile text-table' scope="col" >Serial</th>
 
-              <th scope="col">Telefono</th>
-              <th scope="col">Fecha</th>
-              <th scope="col">Reparacion</th>
-              <th scope="col">Repuesto</th>
-              <th scope="col">Total</th>
-              <th scope="col">Correo</th>
-              <th scope="col">Reporte</th>
+              <th  className='text-mobile text-table' scope="col">Telefono</th>
+              <th  className='text-mobile text-table' scope="col">Fecha</th>
+              <th className='text-mobile text-table'  scope="col">Reparacion</th>
+              <th  className='text-mobile text-table' scope="col">Repuesto</th>
+              <th  className='text-mobile text-table' scope="col">Total</th>
+              <th  className='text-mobile text-table' scope="col">Correo</th>
+              <th  className='text-mobile text-table' scope="col">Reporte</th>
 
             </tr>
           </thead>
@@ -181,16 +184,16 @@ export const Historial = () => {
             {
               Data.map((resp, index) => (
                 <tr key={index}>
-                  <th scope="row">{resp.name}</th>
-                  <td>{resp.identiifcation}</td>
-                  <td>{resp.equipo}</td>
-                  <td>{resp.serial}</td>
-                  <td>{resp.phone}</td>
-                  <td>{resp.fecha?.getDate() + '-' + resp.fecha?.getMonth() + '-' + resp.fecha?.getFullYear()}</td>
-                  <td>{resp.costoReparacion}</td>
-                  <td>{resp.costoRepuesto}</td>
-                  <td>{resp.total}</td>
-                  <td>{resp.correo}</td>
+                  <th className='text-mobile text-table' scope="row">{(resp.name)?resp.name.toUpperCase():''}</th>
+                  <td  className='text-mobile text-table'>{resp.identiifcation}</td>
+                  <td className='text-mobile text-table'  >{resp.equipo}</td>
+                  <td className='text-mobile text-table' >{resp.serial}</td>
+                  <td className='text-mobile text-table'>{resp.phone}</td>
+                  <td className='text-mobile text-table'>{resp.fecha?.getDate() + '-' + resp.fecha?.getMonth() + '-' + resp.fecha?.getFullYear()}</td>
+                  <td className='text-mobile text-table'>{resp.costoReparacion}</td>
+                  <td className='text-mobile text-table'>{resp.costoRepuesto}</td>
+                  <td className='text-mobile text-table'>{resp.total}</td>
+                  <td className='text-mobile text-table'>{resp.correo}</td>
                   <td><a className='btn btn-success' onClick={()=>setIsvisible({id:resp.id,isVisible:true})} >Imprimir</a></td>
                 </tr>
 

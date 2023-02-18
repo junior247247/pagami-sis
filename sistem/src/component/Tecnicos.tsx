@@ -202,52 +202,62 @@ export const Tecnicos = () => {
 
   //Conviene que yo declare las señales y milagros que el dios altisimo ha hecho conmigo
   return (
-    <div>
+    <div className='mt-3'>
 
       <div className="form-group d-flex mr-3 ml-3 justify-content-between">
-        <input type="text" onChange={(e) => onChangeForm(e.target.value, 'id')} className='form-control col-4' placeholder='ID' />
-        <input type="text" onChange={(e) => onChangeForm(e.target.value, 'name')} className='form-control col-4' placeholder='Nombre' />
-        <div className="dropdown col-2">
-          <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <div className="container-fluid">
+          <div className="row justify-content-between">
+          <input type="text" onChange={(e) => onChangeForm(e.target.value, 'id')} className='form-control col-md-3 col-sm-12 mobile-margin' placeholder='ID' />
+          <input type="text" onChange={(e) => onChangeForm(e.target.value, 'name')} className='form-control col-md-3 col-sm-12 mobile-margin' placeholder='Nombre' />
+
+
+          <div className="dropdown   col-sm-5 col-md-3 mobile-margin">
+          <button className="btn w-100 btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {SelectLocal?.name}
           </button>
           <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-
             {
               Local.map(({ idLocal, name }, index) => (
                 <a key={index} className="dropdown-item pointer" onClick={() => setSelectLocal({ name, idLocal })}>{name}</a>
               ))
-
-
-
             }
-
-
           </div>
           
         </div>
 
+              <div className="col mobile-margin margin-desk">
+              <button onClick={create} className='btn col-sm-2 col-md-4  btn-outline-light  '>Guardar</button>
+              </div>
+    
+
+
+          </div>
+        </div>
+       
+      
+       
+
  
       </div>
-      <button onClick={create} className='btn col-auto btn-outline-light ml-3 mb-3'>Guardar</button>
+   
   
         <div className="container-fluid">
-          <div className="row">
-              <div className="form-group col-4">
+          <div className="row margin-desk">
+              <div className="form-group col-md-6 col-sm-12">
                  
                   <input type="text" onChange={(e)=>setFilterTecnico(Tecnico.filter(resp=>resp.name.includes(e.target.value)))} placeholder='Buscar Tecnico' className='form-control'/>
               </div>
           </div>
         </div>
       <div className="table-container ml-3 mr-3">
-        <table className="table table-sm table-dark table-hover ">
+        <table className="table table-dark table-hover ">
           <thead>
             <tr>
-              <th scope="col">ID</th>
-              <th scope="col th-sm">NOMBRE</th>
-              <th scope="col th-sm">LOCAL</th>
-              <th scope="col th-sm">$ REPARACION</th>
-              <th scope="col th-sm">$ TOTAL</th>
+              <th  className='text-mobile text-table' scope="col">ID</th>
+              <th  className='text-mobile text-table' scope="col th-sm">NOMBRE</th>
+              <th className='text-mobile text-table'  scope="col th-sm">LOCAL</th>
+              <th  className='text-mobile text-table' scope="col th-sm">$ REPARACION</th>
+              <th className='text-mobile text-table'  scope="col th-sm">$ TOTAL</th>
             
 
 
@@ -262,12 +272,12 @@ export const Tecnicos = () => {
               (FilterTecnico.map((resp, index) => (
 
                 <tr key={index} className={'pointer'}  onDoubleClick={()=>setIsVisible({IsVisible:true,idTecnico:resp.idDoc})}>
-                  <th scope="row">{resp.id}</th>
+                  <th className='text-mobile text-table'  scope="row">{resp.id}</th>
 
-                  <td>{resp.name}</td>
-                  <td>{resp.nameLocal}</td>
-                  <td>{resp.total>0 ? Number(resp.total / 2).toLocaleString('es') :0 }</td>
-                  <td>{ Number(resp.total).toLocaleString('es')  }</td>
+                  <td className='text-mobile text-table' >{resp.name}</td>
+                  <td className='text-mobile text-table' >{resp.nameLocal}</td>
+                  <td className='text-mobile text-table' >{resp.total>0 ? Number(resp.total / 2).toLocaleString('es') :0 }</td>
+                  <td className='text-mobile text-table' >{ Number(resp.total).toLocaleString('es')  }</td>
 
 
 

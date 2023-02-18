@@ -113,41 +113,44 @@ export const Gastos = () => {
         <div>
             <div className="container-fluid mt-3">
                 <div className="row align-items-center">
-                    <p className='text-white ml-3'>Gastos</p>
-                    <div className="col-4">
+                  
+                    <div className="col-md-4">
                         <div className="form-group">
+                        <p className='text-white '>Gastos</p>
                             <input type="number" onChange={(e)=>onChangeForm(e.target.value,'monto')} placeholder='Monto' className='form-control' />
                         </div>
 
                     </div>
-                    <div className="col">
+                    <div className="col-md-6">
                         <div className="form-group">
+                        <p className='text-white '>Motivo</p>
                             <input type="text" onChange={(e)=>onChangeForm(e.target.value,'motivo')} placeholder='Motivo' className='form-control' />
                         </div>
                     </div>
 
-                    <div className="col-auto mb-3">
+                    <div className="col-md-auto ">
+                    <p className='text-white '></p>
                         <button onClick={create} className="btn btn-outline-light">Guardar</button>
                     </div>
                 </div>
             </div>
-            <div className="container-fluid">
-                <div className="row">
-                    <div className="col">
-                        <h5 className='text-white'>Disponible en caja:{Dinero.toLocaleString('es')}</h5>
+            <div className="container-fluid mobile-margin">
+                <div className="row ">
+                    <div className="col ">
+                        <h5 className='text-white '>Disponible en caja:{Dinero.toLocaleString('es')}</h5>
                     </div>
                 </div>
             </div>
 
-            <div className="table-container col-8 mt-3  mr-3">
+            <div className="table-container col-sm-12 col-md-8 mt-3  mr-3">
         <table className="table  table-dark table-hover ">
           <thead>
             <tr>
             
-              <th scope="col th-sm">Monto</th>
+              <th className='text-mobie text-table' scope="col th-sm">Monto</th>
               
-              <th scope="col th-sm">Motivo</th>
-              <th scope="col th-sm">Fecha</th>
+              <th className='text-mobie text-table' scope="col th-sm">Motivo</th>
+              <th className='text-mobie text-table' scope="col th-sm">Fecha</th>
             </tr>
           </thead>
           <tbody >
@@ -155,9 +158,9 @@ export const Gastos = () => {
               (Gasto.map((resp, index) => (
 
                 <tr key={index} className={'pointer'} >
-                  <th scope="row">{Number(resp.monto).toLocaleString('es')}</th>
-                  <th scope="row">{resp.motivo}</th>
-                  <th scope="row">{ParseToDate(resp.timestamp)}</th>
+                  <th className='text-mobile text-table' scope="row">{Number(resp.monto).toLocaleString('es')}</th>
+                  <th className='text-mobile text-table' scope="row">{resp.motivo}</th>
+                  <th className='text-mobile text-table' scope="row">{ParseToDate(resp.timestamp)}</th>
                 </tr>
               )))
             }

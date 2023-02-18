@@ -422,12 +422,12 @@ export const Ventas = () => {
                 <table className="table table-dark table-hover ">
                     <thead>
                         <tr>
-                            <th scope="col">Description</th>
-                            <th scope="col">Precio</th>
-                            <th scope="col">Cantidad</th>
-                            <th scope="col">Total</th>
+                            <th className='text-mobile text-table'  scope="col">Description</th>
+                            <th className='text-mobile text-table'  scope="col">Precio</th>
+                            <th className='text-mobile text-table'  scope="col">Cantidad</th>
+                            <th  className='text-mobile text-table' scope="col">Total</th>
 
-                            <th scope="col">Eliminar</th>
+                            <th className='text-mobile text-table' scope="col">Eliminar</th>
                         </tr>
                     </thead>
                     <tbody >
@@ -436,10 +436,10 @@ export const Ventas = () => {
                             Detalle.map((resp, index) => (
 
                                 <tr key={index}>
-                                    <th scope="row">{resp.description}</th>
-                                    <td>{resp.precio}</td>
-                                    <td>{resp.cant}</td>
-                                    <td>{resp.total}</td>
+                                    <th className='text-mobile text-table' scope="row">{resp.description}</th>
+                                    <td className='text-mobile text-table'>{resp.precio}</td>
+                                    <td className='text-mobile text-table'>{resp.cant}</td>
+                                    <td className='text-mobile text-table'>{resp.total}</td>
 
                                     <td><a onClick={() => setDelete({ isVisible: true, id: resp.id, idProducto: resp.idProducto })} className='btn btn-danger'>Eliminar</a> </td>
                                 </tr>
@@ -462,7 +462,7 @@ export const Ventas = () => {
             </div>
 
             <div className="modal-container" id='modal-container' onClick={closeModal}>
-                <div className="modal-person" onClick={(e) => e.stopPropagation()}>
+                <div className="modal-person " onClick={(e) => e.stopPropagation()}>
                     <div className="modal-input ml-3 mr-3 mt-3 mb-3">
                         <div className="modal-label">
                             
@@ -482,10 +482,10 @@ export const Ventas = () => {
                         <table className="table table-dark table-hover ">
                             <thead>
                                 <tr>
-                                    <th scope="col">Codigo</th>
-                                    <th scope="col">Producto</th>
-                                    <th scope="col">Precio</th>
-                                    <th scope="col">Existencia</th>
+                                    <th  className='text-mobile text-table' scope="col">Codigo</th>
+                                    <th className='text-mobile text-table'  scope="col">Producto</th>
+                                    <th  className='text-mobile text-table' scope="col">Precio</th>
+                                    <th className='text-mobile text-table'  scope="col">Existencia</th>
 
 
 
@@ -496,15 +496,15 @@ export const Ventas = () => {
                                 {
                                     filterProducto.map((item, index) => (
                                         <tr key={index} onClick={() => Select(item.id)} tabIndex={index} className={(item.isSelected) ? 'pointer bg-success' : 'pointer'} >
-                                            <th scope="row">{item.codigo}</th>
-                                            <td>{item.description}</td>
-                                            <td>{item.precio}</td>
-                                            <td>{item.existencia}</td>
+                                            <th  className='text-mobile text-table' scope="row">{item.codigo}</th>
+                                            <td className='text-mobile text-table'>{item.description}</td>
+                                            <td className='text-mobile text-table'>{item.precio}</td>
+                                            <td className='text-mobile text-table'>{item.existencia}</td>
 
 
 
                                             <td>
-                                                <input onChange={(e) => more(item.id, Number(e.target.value))} onClick={(e) => e.stopPropagation()} value={(item.cant) ? item.cant : 1} width={'20px'} min={1} type="number" />
+                                                <input className='form-control' onChange={(e) => more(item.id, Number(e.target.value))} onClick={(e) => e.stopPropagation()} value={(item.cant) ? item.cant : 1} width={'20px'} min={1} type="number" />
                                             </td>
 
                                         </tr>
