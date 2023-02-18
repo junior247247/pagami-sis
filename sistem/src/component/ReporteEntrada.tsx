@@ -61,7 +61,7 @@ export const ReporteEntrada = ({id}:Props) => {
     const [obj, setobj] = useState<Caracteristicas>(Init)
    // console.log(obj.fecha)
     
-    const getData= async (id:string)=>{
+    const getData= async ()=>{
 
         const db = getFirestore(app);
         const coll = collection(db, 'Entrada');
@@ -114,7 +114,7 @@ export const ReporteEntrada = ({id}:Props) => {
     useEffect(() => {
 
      
-        getData(id);
+        getData();
 
 
     
@@ -142,10 +142,17 @@ export const ReporteEntrada = ({id}:Props) => {
 
                     </View>
                     <View>
-                        <Text style={style.text}>Parque berrio Centro Comercial Metro</Text>
-                        <Text style={style.text}>Boyaca Local 111,CL. 51 #51-40</Text>
+                        <Text style={style.text}>Parque berrio Centro Comercial Metro Boyaca Local 111,CL. 51 #51-40 Medellin ,Antioquia Colombia
+                        
+                        Boyaca Local 111,CL. 51 #51-40 Medellin ,Antioquia Colombia Contacto: +57 3105102274
+                        </Text>
+
+
+
+
+                   {/*     <Text style={style.text}>Boyaca Local 111,CL. 51 #51-40</Text>
                         <Text style={style.text}>Medellin ,Antioquia Colombia</Text>
-                        <Text style={style.text}>Contacto: +57 3105102274</Text>
+    <Text style={style.text}>Contacto: +57 3105102274</Text>*/}
 
                     </View>
                     <View style={style.line} />
@@ -303,13 +310,15 @@ export const ReporteEntrada = ({id}:Props) => {
                         <Text style={style.textDesct}>Total:{obj.total}</Text>
 
                     </View>
+                <View>
+
                
                     <Text style={{ ...style.textDesct, textAlign: 'center', marginTop: 3 }}>Observacion</Text>
-                    <Text style={{ fontSize: 3, marginHorizontal: 3, textAlign: 'center' }}>{'obj.observacion'}</Text>
+                    <Text style={{ fontSize: 3, marginHorizontal: 3, textAlign: 'center' }}>{obj.observacion}</Text>
 
                  
                     <Text style={{ ...style.textDesct, textAlign: 'center', marginTop: 3 }}>Description</Text>
-                    <Text style={{ fontSize: 3, marginHorizontal: 3, textAlign: 'center' }}>{'obj.description'}</Text>
+                    <Text style={{ fontSize: 3, marginHorizontal: 3, textAlign: 'center' }}>{obj.description}</Text>
 
 
 
@@ -320,8 +329,9 @@ export const ReporteEntrada = ({id}:Props) => {
                         equipos en el local una vez entregados los equipos reparados no tienen
                         garantía solo cubrimos daños menores como soldaduras o ajuste de
                         conectores o similares otro tipo de daños no tienen cobertura.
-                    </Text>
-
+</Text>
+</View>
+    
                 </Page>
             </Document>
         </PDFViewer>
