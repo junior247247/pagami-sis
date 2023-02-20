@@ -108,9 +108,9 @@ export const MainComponent = () => {
 
     <BrowserRouter>
 
-      <div className='container-fluid h-100 '>
-        <div className="row">
-          <div className="col-lg-3  none barra-lateral p-0 justify-content-center bg-main  " id='lateral'>
+      <div className='container-fluid  wh '>
+        <div className="row w-100">
+          <div className="col-lg-3 border-l none barra-lateral p-0 justify-content-center bg-main  " id='lateral'>
             <div className="d-flex justify-content-between  ">
               <div className="logo ">
                 <img src={require('../img/logo.png')} alt="" />
@@ -122,7 +122,7 @@ export const MainComponent = () => {
               </div>
             </div>
 
-            <nav className="menu  d-flex    p-0  flex-wrap">
+            <nav className="menu  d-flex   p-0  flex-wrap">
               <Link onClick={closeMenu} className='enlace active col-sm-12   ' to={'/Local'}><span>Local</span></Link>
         
               <Link onClick={closeMenu} className='enlace col-sm-12 disable' to={'/entrada'}><span>Ingreso</span></Link>
@@ -147,7 +147,7 @@ export const MainComponent = () => {
 
 
           </div>
-          <div className="col-md-12  col-lg-9 m-0  p-0">
+          <div className="col-md-12 mt-2 col-lg-9 m-0  p-0">
 
 
 

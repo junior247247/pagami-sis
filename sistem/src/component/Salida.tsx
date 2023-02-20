@@ -127,18 +127,18 @@ export const Salida =  () => {
         <table className="table  table-dark table-hover ">
           <thead>
             <tr>
-              <th scope="col">Nombre</th>
-              <th scope="col">Identificacion</th>
-              <th scope="col">Equipo</th>
-              <th scope="col">Serial</th>
+              <th className='text-mobile text-table' scope="col">Nombre</th>
+              <th className='text-mobile text-table' scope="col">Identificacion</th>
+              <th className='text-mobile text-table' scope="col">Equipo</th>
+              <th className='text-mobile text-table' scope="col">Serial</th>
 
-              <th scope="col">Telefono</th>
-              <th scope="col">Fecha</th>
-              <th scope="col">Reparacion</th>
-              <th scope="col">Repuesto</th>
-              <th scope="col">Total</th>
-              <th scope="col">Correo</th>
-              <th scope="col">Estado</th>
+              <th className='text-mobile text-table' scope="col">Telefono</th>
+              <th className='text-mobile text-table' scope="col">Fecha</th>
+              <th className='text-mobile text-table' scope="col">Reparacion</th>
+              <th className='text-mobile text-table' scope="col">Repuesto</th>
+              <th className='text-mobile text-table' scope="col">Total</th>
+              <th className='text-mobile text-table' scope="col">Correo</th>
+              <th className='text-mobile text-table' scope="col">Estado</th>
 
             </tr>
           </thead>
@@ -146,17 +146,17 @@ export const Salida =  () => {
             {
               FilterData.map((resp, index) => (
                 <tr key={index}>
-                  <th scope="row">{resp.name}</th>
-                  <td>{resp.identiifcation}</td>
-                  <td>{resp.equipo}</td>
-                  <td>{resp.serial}</td>
-                  <td>{resp.phone}</td>
-                  <td>{resp.fecha?.getDate() + '-' + resp.fecha?.getMonth() + '-' + resp.fecha?.getFullYear()}</td>
-                  <td>{resp.costoReparacion}</td>
-                  <td>{resp.costoRepuesto}</td>
-                  <td>{resp.total}</td>
-                  <td>{resp.correo}</td>
-                  <td><span className="label-status bg-success" onClick={() => setIsVisible({ id: resp.id, isVisible: true ,idTecnico:resp.idTecnico!})}>{resp.estado}</span></td>
+                  <th className='text-mobile text-table'  scope="row">{resp.name}</th>
+                  <td className='text-mobile text-table' >{resp.identiifcation}</td>
+                  <td className='text-mobile text-table' >{resp.equipo}</td>
+                  <td className='text-mobile text-table' >{resp.serial}</td>
+                  <td className='text-mobile text-table' >{resp.phone}</td>
+                  <td className='text-mobile text-table' >{resp.fecha?.getDate() + '-' + resp.fecha?.getMonth() + '-' + resp.fecha?.getFullYear()}</td>
+                  <td className='text-mobile text-table' >{resp.costoReparacion}</td>
+                  <td className='text-mobile text-table' >{resp.costoRepuesto}</td>
+                  <td className='text-mobile text-table' >{resp.total}</td>
+                  <td className='text-mobile text-table' >{resp.correo}</td>
+                  <td className='text-mobile text-table' ><span className="label-status bg-success" onClick={() => setIsVisible({ id: resp.id, isVisible: true ,idTecnico:resp.idTecnico!})}>{resp.estado}</span></td>
                 </tr>
 
               ))
