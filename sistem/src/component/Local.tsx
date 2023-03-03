@@ -16,7 +16,7 @@ interface Local {
 
 export const Local = () => {
 
-  const { onChange,state:{idLoca} } = useContext(context);
+  const { onChange,state:{idLoca} ,login} = useContext(context);
   const [Local, setLocal] = useState<Local[]>([]);
   const  {name,email,pass,passConfirm,clear,onChange:onChangeForm}= useForm({name:'',email:'',pass:'',passConfirm:''});
 
@@ -65,6 +65,39 @@ export const Local = () => {
     })
 
   }, [])
+
+  const disActive=()=>{
+    const btn=document.querySelectorAll('.local');
+    btn.forEach(btn=>{
+      btn.classList.remove('bg-main')
+      btn.classList.remove('border')
+      // btn.classList.add('bg-main')
+    })
+  }
+
+
+
+  const click=()=>{
+      const tr=document.querySelectorAll('.local')
+      tr.forEach(el=>{
+        el.addEventListener('click',(e)=>{
+     
+        disActive()
+          el.classList.add('bg-main')
+
+        })
+    
+      })
+
+    
+  }
+
+  useEffect(() => {
+    click()
+  
+  
+  }, [])
+  
 
 
   return (
@@ -127,7 +160,15 @@ export const Local = () => {
             {
               (Local.map((resp, index) => (
 
-                <tr key={index} className={(idLoca===resp.idLocal) ? 'bg-main border pointer ' :'pointer'} >
+                <tr id={index.toString()} onClick={(e)=>{
+                  e.stopPropagation()
+                   const a= document.getElementById(index.toString())
+                   disActive()
+                    a!.classList.add('bg-main')
+                    a?.classList.add('border')
+                    login(resp.idLocal)
+
+                }}  key={index} className={'pointer local'} >
                   <th scope="row" className={''}>{resp.name}</th>
                 </tr>
               )))

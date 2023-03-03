@@ -18,15 +18,17 @@ import { act } from 'react-dom/test-utils';
 import { HistorialIngreso } from './HistorialIngreso';
 import { collection, getFirestore, onSnapshot, query, where } from 'firebase/firestore';
 import { app } from '../Firebase/conexion';
+import { Categoria } from './Categoria';
 
 export const MainComponent = () => {
 
   const [Count, setCount] = useState(0);
   const [CountListo, setCountListo] = useState(0);
   const [CountRetirados, setCountRetirados] = useState(0);
+    const {login,state:{idLoca}} = useContext(context)
   
   const closeMenu = () => {
-
+    
   
     if(document.getElementById('transp')?.style.display=='block'){
       document.getElementById('transp')!.style.display = 'none';
@@ -41,7 +43,7 @@ export const MainComponent = () => {
     
     const db=getFirestore(app);
     const coll=collection(db,'Entrada');
-    const Q=query(coll,where('estado','==','Listo para entregar'))
+    const Q=query(coll,where('estado','==','Listo para entregar'),where('idLoca','==',idLoca))
     onSnapshot(Q,(resp)=>{
       setCountListo(resp.size);
 
@@ -54,7 +56,7 @@ export const MainComponent = () => {
     
     const db=getFirestore(app);
     const coll=collection(db,'Entrada');
-    const Q=query(coll,where('estado','==','Retirado'))
+    const Q=query(coll,where('estado','==','Retirado'),where('idLoca','==',idLoca))
     onSnapshot(Q,(resp)=>{
       setCountRetirados(resp.size);
 
@@ -67,7 +69,7 @@ export const MainComponent = () => {
     
     const db=getFirestore(app);
     const coll=collection(db,'Entrada');
-    const Q=query(coll,where('estado','==','En Reparacion'))
+    const Q=query(coll,where('estado','==','En Reparacion'),where('idLoca','==',idLoca))
     onSnapshot(Q,(resp)=>{
       setCount(resp.size);
 
@@ -130,9 +132,11 @@ export const MainComponent = () => {
               <Link onClick={closeMenu} className='enlace col-sm-12 disable' to={'/salida'}><span>Listo para entregar <span  className='yellow ml-1'>({CountListo})</span>  </span></Link>
               <Link onClick={closeMenu} className='enlace col-sm-12 disable' to={'/Historial'}><span>Historial <span  className='yellow ml-1'>({CountRetirados})</span> </span></Link>
               <Link onClick={closeMenu} className='enlace col-sm-12 disable' to={'/Venta'}><span>Venta</span></Link>
+              <Link onClick={closeMenu} className={'enlace  col-sm-12 disable'} to={'/Categoria'}><span>Categoria</span></Link>
 
               <Link onClick={closeMenu} className={'enlace  col-sm-12 disable'} to={'/Productos'}><span>Productos</span></Link>
 
+      
               <Link onClick={closeMenu} className='enlace col-sm-12 disable' to={'/Tecnicos'}><span>Tecnicos</span></Link>
               <Link onClick={closeMenu} className='enlace col-sm-12   disable' to={'/Gastos'}><span>Gastos</span></Link>
 
@@ -169,11 +173,13 @@ export const MainComponent = () => {
                   <Route path='/Historial' element={<Historial />} />
                   <Route path='/Tecnicos' element={<Tecnicos />} />
                   <Route path='/Horario' element={<Horario />} />
+                  <Route path='/Categoria' element={<Categoria/>}/>
                   <Route path='/Local' element={<Local />} />
                   <Route path='/Caja' element={<Caja />} />
                   <Route path='/Gastos' element={<Gastos />} />
                   <Route path='/HistorialIngreso' element={<HistorialIngreso/>}/>
                   <Route path='*' element={<Productos />} />
+         
                  
                 
            

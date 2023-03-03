@@ -254,7 +254,8 @@ export const EntradaArticulo = () => {
             serial,
             noFact: Count,
             idTecnico: NameSelect.id,
-            cierre: 'SIN CIERRE'
+            cierre: 'SIN CIERRE',
+            idLoca
 
         })
         addCajaDiaria();

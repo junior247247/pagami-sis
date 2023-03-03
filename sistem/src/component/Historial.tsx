@@ -46,7 +46,7 @@ const Init:Caracteristicas={
 }
 
 export const Historial = () => {
-  const { onChange } = useContext(context);
+  const { onChange,state:{idLoca} } = useContext(context);
   const [Data, setData] = useState<Entrada[]>([]);
   const [CaracteristicasState, setCaracteristicas] = useState<Caracteristicas>(Init);
 
@@ -105,7 +105,7 @@ export const Historial = () => {
     onChange('Historial')
     const db = getFirestore(app);
     const coll = collection(db, 'Entrada');
-    const itemsQuery = query(coll, orderBy('timestamp', 'desc'), where('estado', '==', 'Retirado'));
+    const itemsQuery = query(coll, orderBy('timestamp', 'desc'), where('estado', '==', 'Retirado'),where('idLoca','==',idLoca));
     onSnapshot(itemsQuery, (snap) => {
       const data: Entrada[] = snap.docs.map(resp => {
         return {
@@ -165,18 +165,18 @@ export const Historial = () => {
         <table className="table  table-dark table-hover ">
           <thead>
             <tr>
-              <th className='text-mobile text-table'  scope="col">Nombre</th>
-              <th className='text-mobile text-table'  scope="col">Identificacion</th>
-              <th  className='text-mobile text-table' scope="col" colSpan={0} >Equipo</th>
-              <th  className='text-mobile text-table' scope="col" >Serial</th>
+              <th className='text-mobile text-table  table-desk-header'  scope="col">Nombre</th>
+              <th className='text-mobile text-table  table-desk-header'  scope="col">Identificacion</th>
+              <th  className='text-mobile text-table  table-desk-header' scope="col" colSpan={0} >Equipo</th>
+              <th  className='text-mobile text-table  table-desk-header' scope="col" >Serial</th>
 
-              <th  className='text-mobile text-table' scope="col">Telefono</th>
-              <th  className='text-mobile text-table' scope="col">Fecha</th>
-              <th className='text-mobile text-table'  scope="col">Reparacion</th>
-              <th  className='text-mobile text-table' scope="col">Repuesto</th>
-              <th  className='text-mobile text-table' scope="col">Total</th>
-              <th  className='text-mobile text-table' scope="col">Correo</th>
-              <th  className='text-mobile text-table' scope="col">Reporte</th>
+              <th  className='text-mobile text-table  table-desk-header' scope="col">Telefono</th>
+              <th  className='text-mobile text-table  table-desk-header' scope="col">Fecha</th>
+              <th className='text-mobile text-table  table-desk-header'  scope="col">Reparacion</th>
+              <th  className='text-mobile text-table  table-desk-header' scope="col">Repuesto</th>
+              <th  className='text-mobile text-table  table-desk-header' scope="col">Total</th>
+              <th  className='text-mobile text-table table-desk-header' scope="col">Correo</th>
+              <th  className='text-mobile text-table table-desk-header' scope="col">Reporte</th>
 
             </tr>
           </thead>
@@ -184,16 +184,16 @@ export const Historial = () => {
             {
               Data.map((resp, index) => (
                 <tr key={index}>
-                  <th className='text-mobile text-table' scope="row">{(resp.name)?resp.name.toUpperCase():''}</th>
-                  <td  className='text-mobile text-table'>{resp.identiifcation}</td>
-                  <td className='text-mobile text-table'  >{resp.equipo}</td>
-                  <td className='text-mobile text-table' >{resp.serial}</td>
-                  <td className='text-mobile text-table'>{resp.phone}</td>
-                  <td className='text-mobile text-table'>{resp.fecha?.getDate() + '-' + resp.fecha?.getMonth() + '-' + resp.fecha?.getFullYear()}</td>
-                  <td className='text-mobile text-table'>{resp.costoReparacion}</td>
-                  <td className='text-mobile text-table'>{resp.costoRepuesto}</td>
-                  <td className='text-mobile text-table'>{resp.total}</td>
-                  <td className='text-mobile text-table'>{resp.correo}</td>
+                  <th className='text-mobile text-table table-desk-header' scope="row">{(resp.name)?resp.name.toUpperCase():''}</th>
+                  <td  className='text-mobile text-table table-desk-header'>{resp.identiifcation}</td>
+                  <td className='text-mobile text-table table-desk-header'  >{resp.equipo}</td>
+                  <td className='text-mobile text-table table-desk-header' >{resp.serial}</td>
+                  <td className='text-mobile text-table table-desk-header'>{resp.phone}</td>
+                  <td className='text-mobile text-table table-desk-header'>{resp.fecha?.getDate() + '-' + resp.fecha?.getMonth() + '-' + resp.fecha?.getFullYear()}</td>
+                  <td className='text-mobile text-table table-desk-header'>{resp.costoReparacion}</td>
+                  <td className='text-mobile text-table table-desk-header'>{resp.costoRepuesto}</td>
+                  <td className='text-mobile text-table table-desk-header'>{resp.total}</td>
+                  <td className='text-mobile text-table table-desk-header'>{resp.correo}</td>
                   <td><a className='btn btn-success' onClick={()=>setIsvisible({id:resp.id,isVisible:true})} >Imprimir</a></td>
                 </tr>
 

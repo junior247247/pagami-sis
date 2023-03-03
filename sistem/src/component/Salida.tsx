@@ -79,7 +79,7 @@ export const Salida =  () => {
     onChange('Listo para entregar');
     const db = getFirestore(app);
     const coll = collection(db, 'Entrada');
-    const itemsQuery = query(coll, orderBy('timestamp', 'desc'), where('estado', '==', 'Listo para entregar'));
+    const itemsQuery = query(coll, orderBy('timestamp', 'desc'), where('estado', '==', 'Listo para entregar'),where('idLoca','==',idLoca));
     onSnapshot(itemsQuery, (snap) => {
       const data: Entrada[] = snap.docs.map(resp => {
         return {
@@ -127,18 +127,18 @@ export const Salida =  () => {
         <table className="table  table-dark table-hover ">
           <thead>
             <tr>
-              <th className='text-mobile text-table' scope="col">Nombre</th>
-              <th className='text-mobile text-table' scope="col">Identificacion</th>
-              <th className='text-mobile text-table' scope="col">Equipo</th>
-              <th className='text-mobile text-table' scope="col">Serial</th>
+              <th className='text-mobile text-table table-desk-header' scope="col">Nombre</th>
+              <th className='text-mobile text-table table-desk-header' scope="col">Identificacion</th>
+              <th className='text-mobile text-table table-desk-header' scope="col">Equipo</th>
+              <th className='text-mobile text-table table-desk-header' scope="col">Serial</th>
 
-              <th className='text-mobile text-table' scope="col">Telefono</th>
-              <th className='text-mobile text-table' scope="col">Fecha</th>
-              <th className='text-mobile text-table' scope="col">Reparacion</th>
-              <th className='text-mobile text-table' scope="col">Repuesto</th>
-              <th className='text-mobile text-table' scope="col">Total</th>
-              <th className='text-mobile text-table' scope="col">Correo</th>
-              <th className='text-mobile text-table' scope="col">Estado</th>
+              <th className='text-mobile text-table table-desk-header' scope="col">Telefono</th>
+              <th className='text-mobile text-table table-desk-header' scope="col">Fecha</th>
+              <th className='text-mobile text-table table-desk-header' scope="col">Reparacion</th>
+              <th className='text-mobile text-table table-desk-header' scope="col">Repuesto</th>
+              <th className='text-mobile text-table table-desk-header' scope="col">Total</th>
+              <th className='text-mobile text-table table-desk-header' scope="col">Correo</th>
+              <th className='text-mobile text-table table-desk-header' scope="col">Estado</th>
 
             </tr>
           </thead>
@@ -146,17 +146,17 @@ export const Salida =  () => {
             {
               FilterData.map((resp, index) => (
                 <tr key={index}>
-                  <th className='text-mobile text-table'  scope="row">{resp.name}</th>
-                  <td className='text-mobile text-table' >{resp.identiifcation}</td>
-                  <td className='text-mobile text-table' >{resp.equipo}</td>
-                  <td className='text-mobile text-table' >{resp.serial}</td>
-                  <td className='text-mobile text-table' >{resp.phone}</td>
-                  <td className='text-mobile text-table' >{resp.fecha?.getDate() + '-' + resp.fecha?.getMonth() + '-' + resp.fecha?.getFullYear()}</td>
-                  <td className='text-mobile text-table' >{resp.costoReparacion}</td>
-                  <td className='text-mobile text-table' >{resp.costoRepuesto}</td>
-                  <td className='text-mobile text-table' >{resp.total}</td>
-                  <td className='text-mobile text-table' >{resp.correo}</td>
-                  <td className='text-mobile text-table' ><span className="label-status bg-success" onClick={() => setIsVisible({ id: resp.id, isVisible: true ,idTecnico:resp.idTecnico!})}>{resp.estado}</span></td>
+                  <th className='text-mobile text-table table-desk-header'  scope="row">{resp.name}</th>
+                  <td className='text-mobile text-table table-desk-header' >{resp.identiifcation}</td>
+                  <td className='text-mobile text-table table-desk-header' >{resp.equipo}</td>
+                  <td className='text-mobile text-table table-desk-header' >{resp.serial}</td>
+                  <td className='text-mobile text-table table-desk-header' >{resp.phone}</td>
+                  <td className='text-mobile text-table table-desk-header' >{resp.fecha?.getDate() + '-' + resp.fecha?.getMonth() + '-' + resp.fecha?.getFullYear()}</td>
+                  <td className='text-mobile text-table table-desk-header' >{resp.costoReparacion}</td>
+                  <td className='text-mobile text-table table-desk-header' >{resp.costoRepuesto}</td>
+                  <td className='text-mobile text-table table-desk-header' >{resp.total}</td>
+                  <td className='text-mobile text-table table-desk-header' >{resp.correo}</td>
+                  <td className='text-mobile text-table table-desk-header' ><span className="label-status bg-success" onClick={() => setIsVisible({ id: resp.id, isVisible: true ,idTecnico:resp.idTecnico!})}>{resp.estado}</span></td>
                 </tr>
 
               ))

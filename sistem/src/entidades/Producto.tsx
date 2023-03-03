@@ -6,5 +6,6 @@ export interface Producto{
     existencia:string;
     isSelected?:boolean;
     cant?:number;
+    pCompra?:string;
   
 }

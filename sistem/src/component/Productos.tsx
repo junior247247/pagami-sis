@@ -9,9 +9,10 @@ import { PDFViewer } from '@react-18-pdf/renderer';
 export const Productos = () => {
     const { onChange,state } = useContext(context);
     const {idLoca} =state;
+    const [file, setfile] = useState<FileList>();
     const [producto, setProducto] = useState<Producto[]>([]);
     const [getProdById, setGetProdById] = useState<Producto>();
-    const { onChange: onChangeUpdate, code, desc, price, exits } = useForm({ code: '', desc: '', price: '', exits: '' });
+    const { onChange: onChangeUpdate, code, desc, price, exits,priceCompra } = useForm({ code: '', desc: '', price: '', exits: '',priceCompra:'' });
 
     const { onChange: onChangeForm, codigo, description, precio, existencia, PIva,clear } = useForm({ codigo: '', description: '', precio: '', existencia: '', PIva: '' });
     useEffect(() => {
@@ -46,6 +47,7 @@ export const Productos = () => {
                     description: data.get('description'),
                     precio: data.get('precio'),
                     existencia: data.get('existencia'),
+                    pCompra:data.get('priceCompra')
 
                 }
             })
@@ -71,6 +73,7 @@ export const Productos = () => {
             description: desc,
             precio: price,
             existencia: exits,
+            priceCompra:priceCompra
         })
     }
 
@@ -82,6 +85,7 @@ export const Productos = () => {
             description,
             precio,
             existencia,
+            priceCompra,
             timestamp: new Date().getTime(),
             idLocal:idLoca
         })
@@ -111,7 +115,14 @@ export const Productos = () => {
                         </form>
                     </div>
                     <div className="col-2">
-                        <p className='text-white'>Precio</p>
+                        <p className='text-white'>Precio Venta</p>
+                        <form action="" className='form-group'>
+                            <input value={precio} onChange={(e) => onChangeForm(e.target.value, 'precio')} className='form-control' type="number" />
+                        </form>
+                    </div>
+
+                    <div className="col-2">
+                        <p className='text-white'>Precio Compra</p>
                         <form action="" className='form-group'>
                             <input value={precio} onChange={(e) => onChangeForm(e.target.value, 'precio')} className='form-control' type="number" />
                         </form>
@@ -123,13 +134,25 @@ export const Productos = () => {
                         </form>
                     </div>
 
+                
 
-                    <div className="col">
+
+
+
+                  
+                </div>
+
+                <div className="row ml-1 mb-3">
+                <div className="col">
                         <button onClick={createProd} className='btn btn btn-outline-light bg-main'>Guardar</button>
                     </div>
 
+                    <div className="col-auto mr-4">
+                            <input type="file" onChange={(e)=>setfile(e.target.files!)} accept='image/*' className='text-color' />
+                    </div>
                 </div>
 
+         
 
 
 
@@ -152,7 +175,8 @@ export const Productos = () => {
                         <tr>
                             <th className='text-mobile text-table' scope="col">Codigo</th>
                             <th className='text-mobile text-table' scope="col">Producto</th>
-                            <th className='text-mobile text-table' scope="col">Precio</th>
+                            <th className='text-mobile text-table' scope="col">Precio de Compra</th>
+                            <th className='text-mobile text-table' scope="col">Precio de venta</th>
                             <th className='text-mobile text-table' scope="col">Existencia</th>
                             <th className='text-mobile text-table' scope="col">Editar</th>
                             <th className='text-mobile text-table' scope="col">Eliminar</th>
@@ -164,6 +188,7 @@ export const Productos = () => {
                                 <tr key={index}>
                                     <th  className='text-mobile text-table' scope="row">{resp.codigo}</th>
                                     <td className='text-mobile text-table' >{resp.description.toUpperCase()}</td>
+                                    <td className='text-mobile text-table' >{Number(resp.pCompra).toLocaleString('es')}</td>
                                     <td className='text-mobile text-table' >{Number(resp.precio).toLocaleString('es')}</td>
                                     <td className='text-mobile text-table' >{resp.existencia}</td>
                                     <td className='text-mobile text-table' ><a href="#" onClick={() => getById(resp.id)} className='btn btn-success' data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Editar</a></td>
