@@ -49,7 +49,7 @@ export const MainComponent = () => {
 
     })
 
-  }, [])
+  }, [idLoca])
 
 
   useEffect(() => {
@@ -62,7 +62,7 @@ export const MainComponent = () => {
 
     })
 
-  }, [])
+  }, [idLoca])
 
 
   useEffect(() => {
@@ -75,7 +75,7 @@ export const MainComponent = () => {
 
     })
 
-  }, [])
+  }, [idLoca])
   
   const disActive=()=>{
     const btn=document.querySelectorAll('.enlace');

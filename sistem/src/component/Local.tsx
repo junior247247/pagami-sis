@@ -69,7 +69,7 @@ export const Local = () => {
   const disActive=()=>{
     const btn=document.querySelectorAll('.local');
     btn.forEach(btn=>{
-      btn.classList.remove('bg-main')
+      btn.classList.remove('bg-main-2')
       btn.classList.remove('border')
       // btn.classList.add('bg-main')
     })
@@ -83,7 +83,7 @@ export const Local = () => {
         el.addEventListener('click',(e)=>{
      
         disActive()
-          el.classList.add('bg-main')
+          el.classList.add('bg-main-2')
 
         })
     
@@ -164,11 +164,12 @@ export const Local = () => {
                   e.stopPropagation()
                    const a= document.getElementById(index.toString())
                    disActive()
-                    a!.classList.add('bg-main')
+                    a!.classList.add('bg-main-2')
                     a?.classList.add('border')
                     login(resp.idLocal)
+                    alert('Local:'+resp.name)
 
-                }}  key={index} className={'pointer local'} >
+                }}  key={index} className={(resp.idLocal==idLoca)?'pointer bg-main-2 local' : 'pointer local'} >
                   <th scope="row" className={''}>{resp.name}</th>
                 </tr>
               )))
