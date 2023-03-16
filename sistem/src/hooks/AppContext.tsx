@@ -107,8 +107,6 @@ export const AppContext = ({children}:any) => {
     signOut,
     close,
     login,
-
-   
    }}
    >
         {children}

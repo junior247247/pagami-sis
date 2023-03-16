@@ -7,7 +7,7 @@ import { app } from '../Firebase/conexion';
 import { context } from '../hooks/AppContext';
 
 export const Login = () => {
-    const {onChange,email,pass} = useForm({email:'01@gmail.com',pass:'123456'});
+    const {onChange,email,pass} = useForm({email:'04@gmail.com',pass:'123456'});
 
     const {login} = useContext(context)
 
