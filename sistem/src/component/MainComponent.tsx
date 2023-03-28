@@ -19,6 +19,7 @@ import { HistorialIngreso } from './HistorialIngreso';
 import { collection, getFirestore, onSnapshot, query, where } from 'firebase/firestore';
 import { app } from '../Firebase/conexion';
 import { Categoria } from './Categoria';
+import { Mensajes } from './Mensajes';
 
 export const MainComponent = () => {
 
@@ -112,7 +113,7 @@ export const MainComponent = () => {
 
       <div className='container-fluid  wh '>
         <div className="row w-100">
-          <div className="col-lg-3 border-l none barra-lateral p-0 justify-content-center bg-main  " id='lateral'>
+          <div className="col-lg-2 border-l none barra-lateral p-0 justify-content-center bg-main  " id='lateral'>
             <div className="d-flex justify-content-between  ">
               <div className="logo ">
                 <img src={require('../img/logo.png')} alt="" />
@@ -142,7 +143,7 @@ export const MainComponent = () => {
 
               <Link onClick={closeMenu} className='enlace col-sm-12 disable' to={'/HistorialIngreso'}><span>Historial Ingreso</span></Link>
               <Link onClick={closeMenu} className='enlace col-sm-12 disable' to={'/Caja'}><span>Caja</span></Link>
-
+              <Link onClick={closeMenu} className='enlace col-sm-12 disable' to={'/Mensajes'}><span>Mensajes</span></Link>
 
             </nav>
 
@@ -151,7 +152,7 @@ export const MainComponent = () => {
 
 
           </div>
-          <div className="col-md-12 mt-2 col-lg-9 m-0  p-0">
+          <div className="col-md-12 mt-2 col-lg-10 m-0  p-0">
 
 
 
@@ -178,6 +179,7 @@ export const MainComponent = () => {
                   <Route path='/Caja' element={<Caja />} />
                   <Route path='/Gastos' element={<Gastos />} />
                   <Route path='/HistorialIngreso' element={<HistorialIngreso/>}/>
+                  <Route path='/Mensajes' element={<Mensajes/>}/>
                   <Route path='*' element={<Productos />} />
          
                  

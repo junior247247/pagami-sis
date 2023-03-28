@@ -52,7 +52,7 @@ export const Local = () => {
     const db = getFirestore(app);
     const coll = collection(db, 'Local');
     const Q = query(coll, orderBy('timestamp', 'desc'));
-    alert(idLoca)
+
 
     onSnapshot(Q, (resp) => {
       const data: Local[] = resp.docs.map(res => {
@@ -168,7 +168,7 @@ export const Local = () => {
                   a!.classList.add('bg-main-2')
                   a?.classList.add('border')
                   login(resp.idLocal)
-                  alert('Local:' + resp.idLocal)
+                  alert('Local: ' + resp.name)
 
                 }} key={index} className={(resp.idLocal == idLoca) ? 'pointer bg-main-2 local' : 'pointer local'} >
                   <th scope="row" className={''}>{resp.name}</th>

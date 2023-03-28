@@ -1,7 +1,7 @@
 import { type } from '@testing-library/user-event/dist/type';
 import React, { createContext,useReducer ,useEffect,useState} from 'react'
 import {signInWithEmailAndPassword,getAuth, signOut,onAuthStateChanged, User } from 'firebase/auth'
-   
+
 import { app } from '../Firebase/conexion';
 
 export interface State{
@@ -83,10 +83,12 @@ export const AppContext = ({children}:any) => {
    
     
     const close=(close:boolean)=>{
-        dispatch({type:'close',close});
+       // dispatch({type:'close',close});
+        localStorage.clear()
     }
     const login=(idLogin:string)=>{
-        dispatch({type:'login',idLocal:idLogin});
+            localStorage.setItem('idLogin',idLogin)
+       // dispatch({type:'login',idLocal:idLogin});
         //console.log(idLogin);
     }
     const onChange=(state:string)=>{
@@ -94,6 +96,7 @@ export const AppContext = ({children}:any) => {
     }
 
     const signOut=()=>{
+        localStorage.clear()
         const auth=getAuth(app);
         auth.signOut();
         dispatch({type:'signOut'})
