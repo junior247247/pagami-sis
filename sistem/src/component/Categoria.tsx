@@ -4,21 +4,68 @@ import { app } from '../Firebase/conexion'
 import { context } from '../hooks/AppContext'
 import { ParseToDate } from '../hooks/ParseDate'
 import { useForm } from '../hooks/useForm'
+import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage'
 
 interface Categoria{
     name:string;
     id:string;
     fecha:string;
 }
+interface fileImg {
+    fileUri: string;
+    error: string;
+
+}
 export const Categoria = () => {
 
 
     const {onChange} = useContext(context)
+    const [file, setfile] = useState<FileList>();
     const [cagoria, setCagoria] = useState<Categoria[]>([])
    const {name,onChange:onChangeForm,clear} =  useForm({name:''})
     useEffect(() => {
       onChange('Categoria')
     }, [])
+
+    const getFile = async (files: FileList): Promise<fileImg> => {
+        const fi = files[0];
+
+        const storage = getStorage(app);
+        const storageRef = ref(storage, `/files/${fi.name}`)
+        const uploadTask = uploadBytesResumable(storageRef, fi);
+
+        return new Promise((resolve, reject) => {
+            uploadTask.on(
+                'state_changed',
+                (snapshot) => {
+                    const percent = Math.round(
+                        (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                    );
+
+                    // update progress
+                    //setPercent(percent);
+                    console.log(percent);
+                },
+                (err) => {
+                    reject({
+                        error: err
+                    })
+                },
+                () => {
+
+                    getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+                        resolve({
+                            fileUri: url,
+                            error: ''
+                        })
+                    });
+                }
+            );
+
+        })
+
+    }
+
 
     useEffect(() => {
         const db=getFirestore(app)
@@ -41,7 +88,14 @@ export const Categoria = () => {
     let add=()=>{
         const db=getFirestore(app)
         const coll=collection(db,'Categoria')
-        addDoc(coll,{name,timestamp:new Date().getTime()})
+        if(file){
+        getFile(file).then(res=>{
+            addDoc(coll,{icon:res.fileUri,name,timestamp:new Date().getTime()})
+        })
+        }else{
+            addDoc(coll,{name,timestamp:new Date().getTime()})
+        }
+     
         clear()
     }
     
@@ -50,8 +104,13 @@ export const Categoria = () => {
         <div className="row justify-content-between mt-2">
             <div className="col-6">
                 <form>
-                    <label className='text-color'>Categoria</label>
-                    <input value={name} onChange={(e)=>onChangeForm(e.target.value,'name')} type="text" placeholder='Nombre Categoria' className='form-control'  />
+                    <label className='text-color mt-3 mb-3'>Categoria</label>
+                    <div className="d-flex justify-content-between">
+
+                    <input value={name} onChange={(e)=>onChangeForm(e.target.value,'name')} type="text" placeholder='Nombre Categoria' className='form-control col-5'  />
+                    <input onChange={(e)=>setfile(e.target.files!)} type='file' className='form-control col-5' />
+                    </div>
+                   
                 </form>
             </div>
 

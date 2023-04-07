@@ -5,25 +5,69 @@ import { app } from '../Firebase/conexion';
 import { useForm } from '../hooks/useForm';
 import { Producto } from '../entidades/Producto';
 import { PDFViewer } from '@react-18-pdf/renderer';
+import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
+
+interface fileImg {
+    fileUri: string;
+    error: string;
+
+}
 
 export const Productos = () => {
-    const { onChange,state } = useContext(context);
-    const {idLoca} =state;
+    const { onChange, state } = useContext(context);
+    const { idLoca } = state;
     const [file, setfile] = useState<FileList>();
     const [producto, setProducto] = useState<Producto[]>([]);
     const [getProdById, setGetProdById] = useState<Producto>();
-    const { onChange: onChangeUpdate, code, desc, price, exits,priceCompra } = useForm({ code: '', desc: '', price: '', exits: '',priceCompra:'' });
+    const { onChange: onChangeUpdate, code, desc, price, exits, priceCompra } = useForm({ code: '', desc: '', price: '', exits: '', priceCompra: '' });
 
-    const { onChange: onChangeForm, codigo, description, precio, existencia, PIva,clear } = useForm({ codigo: '', description: '', precio: '', existencia: '', PIva: '' });
+    const { onChange: onChangeForm, codigo, description, precio, existencia, PIva, clear } = useForm({ codigo: '', description: '', precio: '', existencia: '', PIva: '' });
     useEffect(() => {
 
         onChange('Productos')
-        return () => {
 
-        }
     }, [])
 
-  
+    const getFile = async (files: FileList): Promise<fileImg> => {
+        const fi = files[0];
+
+        const storage = getStorage(app);
+        const storageRef = ref(storage, `/files/${fi.name}`)
+        const uploadTask = uploadBytesResumable(storageRef, fi);
+
+        return new Promise((resolve, reject) => {
+            uploadTask.on(
+                'state_changed',
+                (snapshot) => {
+                    const percent = Math.round(
+                        (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                    );
+
+                    // update progress
+                    //setPercent(percent);
+                    console.log(percent);
+                },
+                (err) => {
+                    reject({
+                        error: err
+                    })
+                },
+                () => {
+
+                    getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+                        resolve({
+                            fileUri: url,
+                            error: ''
+                        })
+                    });
+                }
+            );
+
+        })
+
+    }
+
+
 
     const getById = (id: string) => {
         setGetProdById(producto.find(res => res.id == id));
@@ -38,7 +82,7 @@ export const Productos = () => {
     useEffect(() => {
         const db = getFirestore(app);
         const coll = collection(db, 'Producto');
-        const items = query(coll, orderBy('timestamp', 'desc') ,where('idLocal','==',idLoca));
+        const items = query(coll, orderBy('timestamp', 'desc'), where('idLocal', '==', idLoca));
         onSnapshot(items, (snap) => {
             const Productos: Producto[] = snap.docs.map(data => {
                 return {
@@ -47,7 +91,7 @@ export const Productos = () => {
                     description: data.get('description'),
                     precio: data.get('precio'),
                     existencia: data.get('existencia'),
-                    pCompra:data.get('priceCompra')
+                    pCompra: data.get('priceCompra')
 
                 }
             })
@@ -59,8 +103,8 @@ export const Productos = () => {
 
         }
     }, [])
-   
-    const Eliminar=(id:string)=>{
+
+    const Eliminar = (id: string) => {
         const db = getFirestore(app);
         const coll = doc(db, 'Producto', id);
         deleteDoc(coll);
@@ -73,22 +117,41 @@ export const Productos = () => {
             description: desc,
             precio: price,
             existencia: exits,
-            priceCompra:priceCompra
+            priceCompra: priceCompra
         })
     }
 
     const createProd = () => {
         const db = getFirestore(app);
         const coll = collection(db, 'Producto');
-        addDoc(coll, {
-            codigo,
-            description,
-            precio,
-            existencia,
-            priceCompra,
-            timestamp: new Date().getTime(),
-            idLocal:idLoca
+        if(file){
+        getFile(file).then((value)=>{
+            addDoc(coll, {
+                codigo,
+                description,
+                precio,
+                existencia,
+                priceCompra,
+                timestamp: new Date().getTime(),
+                idLocal: idLoca,
+                img:value.fileUri
+            })
+
         })
+        }else{
+            addDoc(coll, {
+                codigo,
+                description,
+                precio,
+                existencia,
+                priceCompra,
+                timestamp: new Date().getTime(),
+                idLocal: idLoca,
+                img:''
+            })
+
+        }
+     
         clear();
     }
 
@@ -96,7 +159,7 @@ export const Productos = () => {
     return (
         <div className='hidden'>
 
-       
+
             <div className=' mr-3 ml-3 mt-4 border hidden '>
                 <h6 className='title-prod p-2'>Registrar Productos</h6>
                 <div className="row align-items-center p-2 bg-main">
@@ -134,25 +197,25 @@ export const Productos = () => {
                         </form>
                     </div>
 
-                
 
 
 
 
-                  
+
+
                 </div>
 
                 <div className="row ml-1 mb-3">
-                <div className="col">
+                    <div className="col">
                         <button onClick={createProd} className='btn btn btn-outline-light bg-main'>Guardar</button>
                     </div>
 
                     <div className="col-auto mr-4">
-                            <input type="file" onChange={(e)=>setfile(e.target.files!)} accept='image/*' className='text-color' />
+                        <input type="file" onChange={(e) => setfile(e.target.files!)} accept='image/*' className='text-color' />
                     </div>
                 </div>
 
-         
+
 
 
 
@@ -184,15 +247,15 @@ export const Productos = () => {
                     </thead>
                     <tbody >
                         {
-                            producto.map((resp,index) => (
+                            producto.map((resp, index) => (
                                 <tr key={index}>
-                                    <th  className='text-mobile text-table' scope="row">{resp.codigo}</th>
+                                    <th className='text-mobile text-table' scope="row">{resp.codigo}</th>
                                     <td className='text-mobile text-table' >{resp.description.toUpperCase()}</td>
                                     <td className='text-mobile text-table' >{Number(resp.pCompra).toLocaleString('es')}</td>
                                     <td className='text-mobile text-table' >{Number(resp.precio).toLocaleString('es')}</td>
                                     <td className='text-mobile text-table' >{resp.existencia}</td>
                                     <td className='text-mobile text-table' ><a href="#" onClick={() => getById(resp.id)} className='btn btn-success' data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Editar</a></td>
-                                    <td className='text-mobile text-table' ><a href="#" onClick={() => Eliminar(resp.id)}  className='btn btn-danger'>Eliminar</a></td>
+                                    <td className='text-mobile text-table' ><a href="#" onClick={() => Eliminar(resp.id)} className='btn btn-danger'>Eliminar</a></td>
                                 </tr>
 
                             ))
@@ -250,7 +313,7 @@ export const Productos = () => {
                 </div>
             </div>
 
-      
+
         </div>
     )
 }
