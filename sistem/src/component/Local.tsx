@@ -1,4 +1,4 @@
-import { Firestore, getFirestore, collection, onSnapshot, orderBy, query, addDoc, where } from 'firebase/firestore';
+import { Firestore, getFirestore, collection, onSnapshot, orderBy, query, addDoc, where, setDoc, doc } from 'firebase/firestore';
 import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 import React, { useContext, useEffect, useState } from 'react'
 import { app } from '../Firebase/conexion';
@@ -36,6 +36,12 @@ export const Local = () => {
 
     const auth = getAuth(app);
     const resp = await createUserWithEmailAndPassword(auth, email, pass);
+    setDoc(doc(db,'Users',resp.user.uid),{
+      name,
+      email,
+      timestamp: new Date().getTime(),
+      idLocal: resp.user.uid
+    })
     addDoc(coll, {
       name,
       email,

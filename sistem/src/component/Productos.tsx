@@ -12,6 +12,9 @@ interface fileImg {
     error: string;
 
 }
+interface Img{
+    name:string
+}
 
 export const Productos = () => {
     const { onChange, state } = useContext(context);
@@ -20,17 +23,38 @@ export const Productos = () => {
     const [producto, setProducto] = useState<Producto[]>([]);
     const [getProdById, setGetProdById] = useState<Producto>();
     const { onChange: onChangeUpdate, code, desc, price, exits, priceCompra } = useForm({ code: '', desc: '', price: '', exits: '', priceCompra: '' });
-
+    var reader = new FileReader();
     const { onChange: onChangeForm, codigo, description, precio, existencia, PIva, clear } = useForm({ codigo: '', description: '', precio: '', existencia: '', PIva: '' });
+    
+    function get(event:FileList) {
+        const file = event[0];
+        const reader = new FileReader();
+        reader.onload = function() {
+          const base64Content = reader.result;
+          // El contenido del archivo en Base64 estará disponible en la variable "base64Content"
+        }
+        return reader.readAsDataURL(file);
+      }
+
     useEffect(() => {
 
         onChange('Productos')
+        
 
     }, [])
+    useEffect(() => {
+
+      //  onChange('Productos')
+        
+     
+
+    }, [file])
+
+
 
     const getFile = async (files: FileList): Promise<fileImg> => {
         const fi = files[0];
-
+ 
         const storage = getStorage(app);
         const storageRef = ref(storage, `/files/${fi.name}`)
         const uploadTask = uploadBytesResumable(storageRef, fi);
@@ -67,8 +91,6 @@ export const Productos = () => {
 
     }
 
-
-
     const getById = (id: string) => {
         setGetProdById(producto.find(res => res.id == id));
         const Prodcst: Producto | undefined = producto.find(res => res.id == id);
@@ -91,17 +113,12 @@ export const Productos = () => {
                     description: data.get('description'),
                     precio: data.get('precio'),
                     existencia: data.get('existencia'),
-                    pCompra: data.get('priceCompra')
-
+                    pCompra: data.get('priceCompra'),
+                    img:data.get('img')
                 }
             })
             setProducto(Productos);
         })
-
-
-        return () => {
-
-        }
     }, [])
 
     const Eliminar = (id: string) => {
@@ -121,11 +138,12 @@ export const Productos = () => {
         })
     }
 
-    const createProd = () => {
+    const createProd = async () => {
         const db = getFirestore(app);
         const coll = collection(db, 'Producto');
         if(file){
-        getFile(file).then((value)=>{
+       
+
             addDoc(coll, {
                 codigo,
                 description,
@@ -134,10 +152,9 @@ export const Productos = () => {
                 priceCompra,
                 timestamp: new Date().getTime(),
                 idLocal: idLoca,
-                img:value.fileUri
+                img:''
             })
-
-        })
+     
         }else{
             addDoc(coll, {
                 codigo,
@@ -158,9 +175,9 @@ export const Productos = () => {
 
     return (
         <div className='hidden'>
+            
 
-
-            <div className=' mr-3 ml-3 mt-4 border hidden '>
+            <div className=' mr-4 ml-4 mt-4 border hidden '>
                 <h6 className='title-prod p-2'>Registrar Productos</h6>
                 <div className="row align-items-center p-2 bg-main">
 
@@ -237,7 +254,7 @@ export const Productos = () => {
                     <thead>
                         <tr>
                             <th className='text-mobile text-table' scope="col">Codigo</th>
-                            <th className='text-mobile text-table' scope="col">Producto</th>
+                            <th className='text-mobile text-table' colSpan={2} scope="col">Producto</th>
                             <th className='text-mobile text-table' scope="col">Precio de Compra</th>
                             <th className='text-mobile text-table' scope="col">Precio de venta</th>
                             <th className='text-mobile text-table' scope="col">Existencia</th>
@@ -249,7 +266,9 @@ export const Productos = () => {
                         {
                             producto.map((resp, index) => (
                                 <tr key={index}>
-                                    <th className='text-mobile text-table' scope="row">{resp.codigo}</th>
+                                    <th className='text-mobile text-table' scope="row"><a className='code-link' >{resp.codigo}</a></th>
+
+                                    <td className='text-mobile text-table' ><img src={resp.img} className='table-img' /></td>
                                     <td className='text-mobile text-table' >{resp.description.toUpperCase()}</td>
                                     <td className='text-mobile text-table' >{Number(resp.pCompra).toLocaleString('es')}</td>
                                     <td className='text-mobile text-table' >{Number(resp.precio).toLocaleString('es')}</td>
@@ -312,6 +331,8 @@ export const Productos = () => {
                     </div>
                 </div>
             </div>
+
+           
 
 
         </div>

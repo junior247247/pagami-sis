@@ -193,12 +193,12 @@ export const Caja = () => {
 
 
     //const snapCaja = await getDocs(QueryCaja);
-  
-      //const id = resp.id;
-      const documents = doc(collCaja, idLoca);
-      updateDoc(documents, {
-        money: "0",
-      });
+
+    //const id = resp.id;
+    const documents = doc(collCaja, idLoca);
+    updateDoc(documents, {
+      money: "0",
+    });
 
 
     const collFondo = collection(db, "FondoCaja");

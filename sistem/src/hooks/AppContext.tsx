@@ -9,13 +9,17 @@ export interface State{
     idLoca:string;
     close:boolean,
     stateLogin:'login'|'no-fondo'|'no-authenticate',
+    idChat:''|string;
+    idUser:''|string;
 }
 
 const initState:State={
     state:'Dashboard',
     idLoca:'',
     close:false,
-    stateLogin:'no-authenticate'
+    stateLogin:'no-authenticate',
+    idChat:'',
+    idUser:''
 }
 
 interface Props{
@@ -24,11 +28,14 @@ interface Props{
     login:(idLocal:string)=>void;
     signOut:()=>void;
     close:(close:boolean)=>void;
+    setChat:(idChat:string)=>void;
+    setUserChat:(idUser:string)=>void;
   
 }
 export const context=createContext({}as Props);
 
-type action={type:'update',state:string}|{type:'login',idLocal:string}|{type:'signOut'}|{type:'close',close:boolean};
+type action={type:'update',state:string}|{type:'login',idLocal:string}|{type:'signOut'}|{type:'close',close:boolean}|{type:'chat',idChat:string}|
+{type:'idUser',idUser:string}
 
 const Reducer=(state:State,action:action):State=>{
 
@@ -58,6 +65,17 @@ const Reducer=(state:State,action:action):State=>{
                     ...state,
                     close:action.close
                 }
+
+            case 'chat':
+                return{
+                    ...state,
+                    idChat:action.idChat
+                }
+            case 'idUser':
+                return{
+                    ...state,
+                    idUser:action.idUser
+                }
         default:
             return state;
     }
@@ -69,6 +87,11 @@ export const AppContext = ({children}:any) => {
 
     const [state, dispatch] = useReducer(Reducer,initState);
    // const [CurrentUser, setCurrentUser] = useState<User>();
+
+   const setUserChat=(id:string)=>dispatch({type:'idUser',idUser:id})
+   const setChat=(id:string)=>{
+        dispatch({type:'chat',idChat:id})
+   }
 
     useEffect(() => {
         const auth=getAuth(app);
@@ -110,6 +133,8 @@ export const AppContext = ({children}:any) => {
     signOut,
     close,
     login,
+    setChat,
+    setUserChat
    }}
    >
         {children}

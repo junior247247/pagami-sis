@@ -7,5 +7,6 @@ export interface Producto{
     isSelected?:boolean;
     cant?:number;
     pCompra?:string;
+    img?:string
   
 }
