@@ -27,7 +27,7 @@ export const ReporteCierre = ({gastos,ventas,dineroCaja,fondo}:Props) => {
 
 
     <Document>
-        <Page size='A9'>
+        <Page size='A7'>
             <View style={style.header}>
                 <Image style={style.img} source={require('../img/logo-factura.png')} />
                 <View>
